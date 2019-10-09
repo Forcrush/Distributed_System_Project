@@ -17,7 +17,7 @@ public class chy {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     } catch (Exception e) {
     }
-    WhiteBoard newPad = new WhiteBoard();
+    WhiteBoard newPad = new WhiteBoard("Server");
     newPad.setTitle("Server Side");
     newPad.setSize(1800, 200);
     newPad.addWindowListener(

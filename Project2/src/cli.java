@@ -29,8 +29,8 @@ public class cli extends JFrame implements Runnable{
     public void creat() {
         try {
             Socket client =new Socket("localhost", 9090);
-            is = new DataInputStream( client.getInputStream());
-            //iss = new ObjectInputStream( client.getInputStream());
+            is = new DataInputStream(client.getInputStream());
+            iss = new ObjectInputStream(client.getInputStream());
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -43,7 +43,7 @@ public class cli extends JFrame implements Runnable{
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
         }
-        newPad = new WhiteBoard();
+        newPad = new WhiteBoard("Client");
         newPad.setTitle("Client Side A");
         newPad.setSize(1800, 200);
         newPad.addWindowListener(
@@ -54,20 +54,11 @@ public class cli extends JFrame implements Runnable{
             });
 
         g = newPad.getGraphics();
-        Thread t = new Thread(this);
-        t.start();
-
-    }
-    //将is输入流终中的坐标得到，并根据坐标信息画出相应的线段。
-    @Override
-    public void run() {
         while (true) {
             try {
-                    /*
-                    nb = (WhiteBoard.drawings)iss.readObject();
-                    System.out.println("GEt suc");
-
-                    */
+//                    nb = (WhiteBoard.drawings)iss.readObject();
+//                    System.out.println("Get suc");
+                    
                     x1=is.readInt();
                     y1=is.readInt();
                     x2=is.readInt();
@@ -76,10 +67,35 @@ public class cli extends JFrame implements Runnable{
                     
             } catch (IOException e) {
             e.printStackTrace();
-        }/*
-        catch (ClassNotFoundException ee) {
-            ee.printStackTrace();
-        }*/
+        }
+//        catch (ClassNotFoundException ee) {
+//            ee.printStackTrace();
+//        }
+        }
+//        Thread t = new Thread(this);
+//        t.start();
+
+    }
+    //将is输入流终中的坐标得到，并根据坐标信息画出相应的线段。
+    @Override
+    public void run() {
+        while (true) {
+            try {
+//                    nb = (WhiteBoard.drawings)iss.readObject();
+//                    System.out.println("Get suc");
+                    
+                    x1=is.readInt();
+                    y1=is.readInt();
+                    x2=is.readInt();
+                    y2=is.readInt();
+                    g.drawLine(x1, y1, x2, y2);
+                    
+            } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        catch (ClassNotFoundException ee) {
+//            ee.printStackTrace();
+//        }
         }
     }
 

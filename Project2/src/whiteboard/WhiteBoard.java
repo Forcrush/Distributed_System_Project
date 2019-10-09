@@ -9,6 +9,7 @@ package whiteboard;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 import java.io.*;
 
 import java.awt.Graphics;
@@ -46,8 +47,11 @@ public class WhiteBoard extends JFrame
     int number = 0;
     volatile drawings newOb = null,newOb2=null;
     drawings[] iArray = new drawings[999];
+    
+    private static int counter = 0;
+    private static int port = 9090;
 
-    public WhiteBoard() {
+    public WhiteBoard(String name) {
         super("Distributed WhiteBoard");
         JMenuBar bar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
@@ -197,20 +201,46 @@ public class WhiteBoard extends JFrame
         setSize(width, height);
         setVisible(true);
 
-        try{
-            //ServerSocket ss = ServerSocketFactory.getDefault().createServerSocket(9090);
-            ServerSocket ss = new ServerSocket(9090);
-            while(true){
-                    
-                Socket client = ss.accept();
-                number ++;
-                Thread t = new Thread(() -> clientCon(client, number));
-                t.start();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }   
+        if(name.equals("Server")) {
+        	ServerSocketFactory factory = ServerSocketFactory.getDefault();
+            try(ServerSocket server = factory.createServerSocket(port))
+    		{
+    			System.out.println("Waiting for client connection to port number: " + port);
+    			
+    			// Wait for connections.
+    			while(true)
+    			{
+    				Socket client = server.accept();
+    				counter++;
+    				System.out.println("Client "+counter+": Applying for connection! in port num: " + client.getPort());
+    							
+    				// Start a new thread for a connection
+    				Thread t = new Thread(() -> clientCon(client, counter));
+    				t.start();
+    			}
+    			
+    		} 
+    		catch (IOException e)
+    		{
+    			System.out.println("Unable to setup server, try another port.");
+//    			System.exit(1);
+    		}
+        }
+        
+//        try{
+//        	
+//            ServerSocket ss = new ServerSocket(port);
+//            while(true){
+//                    
+//                Socket client = ss.accept();
+//                number ++;
+//                Thread t = new Thread(() -> clientCon(client, number));
+//                t.start();
+//            }
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }   
 
         
     }
@@ -219,7 +249,7 @@ public class WhiteBoard extends JFrame
             try{
                 //连接成功后得到数据输出流
                 os = new DataOutputStream(clientSocket.getOutputStream()); 
-                //oss = new ObjectOutputStream(clientSocket.getOutputStream());   
+                oss = new ObjectOutputStream(clientSocket.getOutputStream());   
 
             }  catch (IOException e) {
                 e.printStackTrace();
@@ -234,9 +264,9 @@ public class WhiteBoard extends JFrame
                             System.out.println(newOb.x1+" "+newOb.y2+" "+newOb.x2+" "+newOb.y2);
                             System.out.println(clientSocket.getPort()+' '+clientSocket.getLocalPort());
                             System.out.println(number);
-                            /*
-                            oss.writeObject(newOb);
-                            */
+                           
+//                            oss.writeObject(newOb);
+                          
                             os.writeInt(newOb.x1);
                             os.writeInt(newOb.y1);
                             os.writeInt(newOb.x2);
@@ -595,7 +625,7 @@ public class WhiteBoard extends JFrame
         void draw(Graphics2D g2d) {};
     }
 
-    class Pencil extends drawings
+    class Pencil extends drawings implements Serializable
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(R, G, B));
@@ -606,7 +636,7 @@ public class WhiteBoard extends JFrame
     }
 
 
-    class Line extends drawings
+    class Line extends drawings implements Serializable
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(R, G, B));
@@ -617,7 +647,7 @@ public class WhiteBoard extends JFrame
     }
 
 
-    class Rect extends drawings
+    class Rect extends drawings implements Serializable
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(R, G, B));
@@ -627,7 +657,7 @@ public class WhiteBoard extends JFrame
         }
     }
 
-    class Oval extends drawings
+    class Oval extends drawings implements Serializable
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(R, G, B));
@@ -637,7 +667,7 @@ public class WhiteBoard extends JFrame
         }
     }
 
-    class Circle extends drawings
+    class Circle extends drawings implements Serializable
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(R, G, B));
@@ -648,7 +678,7 @@ public class WhiteBoard extends JFrame
         }
     }
 
-    class Rubber extends drawings
+    class Rubber extends drawings implements Serializable
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(255, 255, 255));
@@ -658,7 +688,7 @@ public class WhiteBoard extends JFrame
         }
     }
 
-    class Word extends drawings
+    class Word extends drawings implements Serializable
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(R, G, B));

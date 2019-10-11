@@ -225,24 +225,7 @@ public class WhiteBoard extends JFrame
     			System.out.println("Unable to setup server, try another port.");
 //    			System.exit(1);
     		}
-        }
-        
-//        try{
-//        	
-//            ServerSocket ss = new ServerSocket(port);
-//            while(true){
-//                    
-//                Socket client = ss.accept();
-//                number ++;
-//                Thread t = new Thread(() -> clientCon(client, number));
-//                t.start();
-//            }
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }   
-
-        
+        }   
     }
     void clientCon(Socket client, int number) {
         Socket clientSocket = client;
@@ -255,59 +238,32 @@ public class WhiteBoard extends JFrame
                 e.printStackTrace();
             }   
             //x1,y1为起始点坐标，x2,y2为终点坐标。四个点的初始值设为0
-            if (number==1){
 
-                while (true) {
-                    if(newOb != null && newOb.x1 != 0 && newOb.y1 != 0) {
-                        try {
-                            
-                            System.out.println(newOb.x1+" "+newOb.y2+" "+newOb.x2+" "+newOb.y2);
-                            System.out.println(clientSocket.getPort()+' '+clientSocket.getLocalPort());
-                            System.out.println(number);
-                           
+            while (true) {
+                if(newOb != null && newOb.x1 != 0 && newOb.y1 != 0) {
+                    try {
+                        
+                        System.out.println(newOb.x1+" "+newOb.y2+" "+newOb.x2+" "+newOb.y2);
+                        System.out.println(clientSocket.getPort()+' '+clientSocket.getLocalPort());
+                        System.out.println(number);
+                       
 //                            oss.writeObject(newOb);
-                          
-                            os.writeInt(newOb.x1);
-                            os.writeInt(newOb.y1);
-                            os.writeInt(newOb.x2);
-                            os.writeInt(newOb.y2);
-                            
+                      
+                        os.writeInt(newOb.x1);
+                        os.writeInt(newOb.y1);
+                        os.writeInt(newOb.x2);
+                        os.writeInt(newOb.y2);
+                        
 
-                            newOb = null;
-                        } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
+                        newOb = null;
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
                     }
                 }
             }
-            else{
-                while (true) {
-                    //服务器界面画下一条线时，将四个点的信息写入到数据输出流中，之后将四个数据置0
-                    if(newOb != null && newOb.x1 != 0 && newOb.y1 != 0) {
-                        try {
-                            System.out.println(newOb.x1+" "+newOb.y2+" "+newOb.x2+" "+newOb.y2);
-                            System.out.println(clientSocket.getPort()+' '+clientSocket.getLocalPort());
-                            System.out.println(number);
-                            /*
-                            oss.writeObject(newOb);
-                            */
-                            os.writeInt(newOb.x1);
-                            os.writeInt(newOb.y1);
-                            os.writeInt(newOb.x2);
-                            os.writeInt(newOb.y2);
-                            
-
-                            newOb = null;
-                        } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-                
-            }
+        }   
+          
     public class ButtonHandlery implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (int j = 3; j < choices.length - 3; j++) {

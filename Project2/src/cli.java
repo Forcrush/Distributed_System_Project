@@ -66,14 +66,12 @@ public class cli extends JFrame implements Runnable{
                     g.drawLine(x1, y1, x2, y2);
                     
             } catch (IOException e) {
-            e.printStackTrace();
-        }
+            	e.printStackTrace();
+            }
 //        catch (ClassNotFoundException ee) {
 //            ee.printStackTrace();
 //        }
         }
-//        Thread t = new Thread(this);
-//        t.start();
 
     }
     //将is输入流终中的坐标得到，并根据坐标信息画出相应的线段。

@@ -46,7 +46,7 @@ public class WhiteBoard extends JFrame
     ObjectOutputStream oss;
     int number = 0;
     volatile drawings newOb = null,newOb2=null;
-    drawings[] iArray = new drawings[999];
+    drawings[] iArray = new drawings[9999];
     
     private static int counter = 0;
     private static int port = 9090;

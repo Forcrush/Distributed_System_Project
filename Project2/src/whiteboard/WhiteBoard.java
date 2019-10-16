@@ -15,8 +15,6 @@ import java.io.*;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import javax.net.ServerSocketFactory;
@@ -43,9 +41,10 @@ public class WhiteBoard extends JFrame
     JCheckBox bold, italic;
     JComboBox<String> styles;
     DataOutputStream os;
+    DataInputStream is;
     ObjectOutputStream oss;
     int number = 0;
-    volatile drawings newOb = null,newOb2=null;
+    public volatile drawings newOb = null,newOb2=null;
     drawings[] iArray = new drawings[9999];
     
     private static int counter = 0;
@@ -231,31 +230,48 @@ public class WhiteBoard extends JFrame
         Socket clientSocket = client;
             try{
                 //连接成功后得到数据输出流
-                os = new DataOutputStream(clientSocket.getOutputStream()); 
-                oss = new ObjectOutputStream(clientSocket.getOutputStream());   
+                os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+//                os = new DataOutputStream(client.getOutputStream());
+                oss = new ObjectOutputStream(clientSocket.getOutputStream());
+                is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
 
             }  catch (IOException e) {
                 e.printStackTrace();
             }   
             //x1,y1为起始点坐标，x2,y2为终点坐标。四个点的初始值设为0
 
+            int count = 0;
             while (true) {
-                if(newOb != null && newOb.x1 != 0 && newOb.y1 != 0) {
+                if(newOb != null) {
                     try {
-                        
+
                         System.out.println(newOb.x1+" "+newOb.y2+" "+newOb.x2+" "+newOb.y2);
-                        System.out.println(clientSocket.getPort()+' '+clientSocket.getLocalPort());
+                        System.out.println(clientSocket.getPort()+"cacacaa"+clientSocket.getLocalPort());
                         System.out.println(number);
                        
 //                            oss.writeObject(newOb);
-                      
-                        os.writeInt(newOb.x1);
-                        os.writeInt(newOb.y1);
-                        os.writeInt(newOb.x2);
-                        os.writeInt(newOb.y2);
-                        
 
+                        os.writeInt(newOb.x1);
+                        System.out.println("wrote1");
+
+                        os.writeInt(newOb.y1);
+                        System.out.println("wrote2");
+
+                        os.writeInt(newOb.x2);
+                        System.out.println("wrote3");
+
+                        os.writeInt(newOb.y2);
+                        System.out.println("wrote4");
+                        count+=1;
+                        os.flush();
                         newOb = null;
+                        int x1, x2, y1, y2;
+                        x1=is.readInt();
+                        y1=is.readInt();
+                        x2=is.readInt();
+                        y2=is.readInt();
+                        Graphics g = this.getGraphics();
+                        g.drawLine(x1, y1, x2, y2);
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -572,7 +588,7 @@ public class WhiteBoard extends JFrame
 
     public class drawings implements Serializable
     {
-        int x1, y1, x2, y2;
+        public int x1, y1, x2, y2;
         int R, G, B;
         float stroke;
         int type;
@@ -653,6 +669,10 @@ public class WhiteBoard extends JFrame
                 g2d.drawString(s1, x1, y1);
             }
         }
+    }
+
+    public drawings getNewOb() {
+        return newOb;
     }
 
 }

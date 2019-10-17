@@ -24,7 +24,7 @@ public class WhiteBoard extends JFrame
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private int width = 1800, height = 1000;
-    private int currentChoice = 3;
+    private int currentChoice = 5;
     private float stroke = 1.0f;
     int R, G, B;
     int genre1, genre2;
@@ -266,7 +266,7 @@ public class WhiteBoard extends JFrame
         public void mouseDragged(MouseEvent e) {
             statusBar.setText("     Mouse Dragged @:[" + e.getX() +
                     ", " + e.getY() + "]");
-
+            //the reason this works is mousePressed is first enabled
             if (currentChoice == 3 || currentChoice == 8) {
                 iArray[index - 1].x1 = iArray[index].x2 = iArray[index].x1 = e.getX();
                 iArray[index - 1].y1 = iArray[index].y2 = iArray[index].y1 = e.getY();

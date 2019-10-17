@@ -8,8 +8,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
+import java.util.ArrayList;
 
-public class cli extends JFrame {
+public class Client extends JFrame {
     int x1,x2,y1,y2,curchoice;
     DataInputStream is;
     DataOutputStream os;
@@ -17,18 +18,20 @@ public class cli extends JFrame {
     Graphics g;
     WhiteBoard newPad;
     WhiteBoard.drawings nb;
+    String userName = "Client";
+    Socket client;
 
-    public static void main(String args[]) throws IOException {
-        cli CP = new cli();
+    public static void main(String args[]) throws IOException, ClassNotFoundException {
+        Client CP = new Client();
         CP.creat();
         CP.ShowUI();
     }
     //产生一个Socket类用于连接服务器，并得到输入流
     public void creat() {
         try {
-            Socket client =new Socket("localhost", 9090);
-            is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
-//            is = new DataInputStream(client.getInputStream());
+            client =new Socket("localhost", 9090);
+//            is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
+            is = new DataInputStream(client.getInputStream());
             iss = new ObjectInputStream(client.getInputStream());
             os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
         } catch (UnknownHostException e) {
@@ -38,7 +41,7 @@ public class cli extends JFrame {
         }
     }
     //构造客户端界面并启动线程
-    public void ShowUI() throws IOException {
+    public void ShowUI() throws IOException, ClassNotFoundException {
         System.out.println("1 ininini");
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -47,9 +50,8 @@ public class cli extends JFrame {
             System.out.println("3 badbad");
             e.printStackTrace();
         }
-        newPad = new WhiteBoard("Client");
-        newPad.setTitle("Client Side A");
-        newPad.setSize(500, 500);
+        newPad = new WhiteBoard(userName, client);
+        newPad.setTitle(userName);
         System.out.println("4 ininini");
         newPad.addWindowListener(
             new WindowAdapter() {
@@ -60,28 +62,35 @@ public class cli extends JFrame {
             });
         System.out.println("5 ininini");
         g = newPad.getGraphics();
-        while (true) {
-            try {
-//                nb = (WhiteBoard.drawings)iss.readObject();
-                System.out.println("Get ininini");
-
-                x1=is.readInt();
-                y1=is.readInt();
-                x2=is.readInt();
-                y2=is.readInt();
-
-                System.out.println("the coordinates are: " + x1 + x2 + y1 + y2);
-                g.drawLine(x1, y1, x2, y2);
-
-//                os.writeInt(newPad.getNewOb().x1);
-//                os.writeInt(newPad.getNewOb().y1);
-//                os.writeInt(newPad.getNewOb().x2);
-//                os.writeInt(newPad.getNewOb().y2);
-//                os.flush();
-                    
-            } catch (IOException e) {
-            	e.printStackTrace();
-            }
+//        while (true) {
+//            try {
+////                nb = (WhiteBoard.drawings)iss.readObject();
+//                System.out.println("Get ininini");
+//                ArrayList<Integer> coordinate = new ArrayList<Integer>();
+//                for(int i = 0; i < 4; i++) {
+//                    coordinate.add(is.readInt());
+//                }
+//                x1=is.readInt();
+//                y1=is.readInt();
+//                x2=is.readInt();
+//                y2=is.readInt();
+//                x1=coordinate.get(0);
+//                y1=coordinate.get(1);
+//                x2=coordinate.get(2);
+//                y2=coordinate.get(3);
+//
+//                System.out.println("the coordinates are: " + x1 + x2 + y1 + y2);
+//                g.drawLine(x1, y1, x2, y2);
+//
+////                os.writeInt(newPad.getNewOb().x1);
+////                os.writeInt(newPad.getNewOb().y1);
+////                os.writeInt(newPad.getNewOb().x2);
+////                os.writeInt(newPad.getNewOb().y2);
+////                os.flush();
+//                    
+//            } catch (IOException e) {
+//            	e.printStackTrace();
+//            }
 //        catch (ClassNotFoundException ee) {
 //            ee.printStackTrace();
 //        }
@@ -110,5 +119,3 @@ public class cli extends JFrame {
 ////        }
 //        }
 //    }
-
-}

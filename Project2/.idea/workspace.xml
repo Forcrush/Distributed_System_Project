@@ -2,28 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd7d413b-af3a-4cdb-8e5f-f3791214cb11" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/chy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/chy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/cli.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/cli.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$ButtonHandlerx.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$ButtonHandlerx.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$ButtonHandlery.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$ButtonHandlery.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$DrawPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$DrawPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$checkBoxHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$checkBoxHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$mouseEvent1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$mouseEvent1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$mouseEvent2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$mouseEvent2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cli.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/whiteboard/WhiteBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/whiteboard/WhiteBoard.java" afterDir="false" />
     </list>
@@ -42,8 +21,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/whiteboard/WhiteBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="250" column="23" lean-forward="true" selection-start-line="250" selection-start-column="23" selection-end-line="250" selection-end-column="23" />
+            <state relative-caret-position="146">
+              <caret line="253" column="46" lean-forward="true" selection-start-line="253" selection-start-column="46" selection-end-line="253" selection-end-column="46" />
               <folding>
                 <element signature="e#23730#23731#0" expanded="true" />
                 <element signature="e#23758#23759#0" expanded="true" />
@@ -55,10 +34,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/chy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+            <state relative-caret-position="248">
+              <caret line="32" column="11" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#706#838#0" expanded="true" />
+                <element signature="e#837#838#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -67,8 +48,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cli.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-264">
-              <caret line="29" column="61" selection-start-line="29" selection-start-column="41" selection-end-line="29" selection-end-column="61" />
+            <state relative-caret-position="-8">
+              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
             </state>
           </provider>
         </entry>
@@ -97,8 +78,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/crearwb.java" />
         <option value="$PROJECT_DIR$/src/creatwb.java" />
-        <option value="$PROJECT_DIR$/src/whiteboard/WhiteBoard.java" />
+        <option value="$PROJECT_DIR$/src/chy.java" />
         <option value="$PROJECT_DIR$/src/cli.java" />
+        <option value="$PROJECT_DIR$/src/whiteboard/WhiteBoard.java" />
       </list>
     </option>
   </component>
@@ -111,10 +93,9 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="975" />
+    <option name="width" value="1280" />
     <option name="height" value="712" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -227,7 +208,7 @@
     <option name="totallyTimeSpent" value="683000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="715" extended-state="6" />
+    <frame x="0" y="23" width="1280" height="712" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27786753" />
@@ -288,27 +269,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/javax/swing/UIManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="570" column="23" selection-start-line="570" selection-start-column="23" selection-end-line="570" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/java/awt/Window.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="1754" column="29" selection-start-line="1754" selection-start-column="29" selection-end-line="1754" selection-end-column="29" />
+          <folding>
+            <element signature="e#31436#31437#0" expanded="true" />
+            <element signature="e#31480#31481#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/chy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+        <state relative-caret-position="248">
+          <caret line="32" column="11" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#706#838#0" expanded="true" />
+            <element signature="e#837#838#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cli.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-264">
-          <caret line="29" column="61" selection-start-line="29" selection-start-column="41" selection-end-line="29" selection-end-column="61" />
+        <state relative-caret-position="-8">
+          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/whiteboard/WhiteBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="250" column="23" lean-forward="true" selection-start-line="250" selection-start-column="23" selection-end-line="250" selection-end-column="23" />
+        <state relative-caret-position="146">
+          <caret line="253" column="46" lean-forward="true" selection-start-line="253" selection-start-column="46" selection-end-line="253" selection-end-column="46" />
           <folding>
             <element signature="e#23730#23731#0" expanded="true" />
             <element signature="e#23758#23759#0" expanded="true" />

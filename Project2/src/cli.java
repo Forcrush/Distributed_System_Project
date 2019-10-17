@@ -49,7 +49,7 @@ public class cli extends JFrame {
         }
         newPad = new WhiteBoard("Client");
         newPad.setTitle("Client Side A");
-        newPad.setSize(1800, 200);
+        newPad.setSize(500, 500);
         System.out.println("4 ininini");
         newPad.addWindowListener(
             new WindowAdapter() {
@@ -62,21 +62,22 @@ public class cli extends JFrame {
         g = newPad.getGraphics();
         while (true) {
             try {
-//                    nb = (WhiteBoard.drawings)iss.readObject();
-                    System.out.println("Get ininini");
-                    
-                    x1=is.readInt();
-                    y1=is.readInt();
-                    x2=is.readInt();
-                    y2=is.readInt();
-                    System.out.println("The numbers = " + newPad.getNewOb().x1);
-                    os.writeInt(newPad.getNewOb().x1);
-                    os.writeInt(newPad.getNewOb().y1);
-                    os.writeInt(newPad.getNewOb().x2);
-                    os.writeInt(newPad.getNewOb().y2);
-                    os.flush();
-                    System.out.println("the coordinates are: " + x1 + x2 + y1 + y2);
-                    g.drawLine(x1, y1, x2, y2);
+//                nb = (WhiteBoard.drawings)iss.readObject();
+                System.out.println("Get ininini");
+
+                x1=is.readInt();
+                y1=is.readInt();
+                x2=is.readInt();
+                y2=is.readInt();
+
+                System.out.println("the coordinates are: " + x1 + x2 + y1 + y2);
+                g.drawLine(x1, y1, x2, y2);
+
+//                os.writeInt(newPad.getNewOb().x1);
+//                os.writeInt(newPad.getNewOb().y1);
+//                os.writeInt(newPad.getNewOb().x2);
+//                os.writeInt(newPad.getNewOb().y2);
+//                os.flush();
                     
             } catch (IOException e) {
             	e.printStackTrace();

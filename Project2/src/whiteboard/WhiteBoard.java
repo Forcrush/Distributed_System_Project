@@ -205,26 +205,26 @@ public class WhiteBoard extends JFrame
             try(ServerSocket server = factory.createServerSocket(port))
     		{
     			System.out.println("Waiting for client connection to port number: " + port);
-    			
+
     			// Wait for connections.
     			while(true)
     			{
     				Socket client = server.accept();
     				counter++;
     				System.out.println("Client "+counter+": Applying for connection! in port num: " + client.getPort());
-    							
+
     				// Start a new thread for a connection
     				Thread t = new Thread(() -> clientCon(client, counter));
     				t.start();
     			}
-    			
-    		} 
+
+    		}
     		catch (IOException e)
     		{
     			System.out.println("Unable to setup server, try another port.");
 //    			System.exit(1);
     		}
-        }   
+        }
     }
     void clientCon(Socket client, int number) {
         Socket clientSocket = client;
@@ -263,15 +263,19 @@ public class WhiteBoard extends JFrame
                         os.writeInt(newOb.y2);
                         System.out.println("wrote4");
                         count+=1;
-                        os.flush();
+                        if(count == 20) {
+                            os.flush();
+                            count = 0;
+                        }
+
                         newOb = null;
-                        int x1, x2, y1, y2;
-                        x1=is.readInt();
-                        y1=is.readInt();
-                        x2=is.readInt();
-                        y2=is.readInt();
-                        Graphics g = this.getGraphics();
-                        g.drawLine(x1, y1, x2, y2);
+//                        int x1, x2, y1, y2;
+//                        x1=is.readInt();
+//                        y1=is.readInt();
+//                        x2=is.readInt();
+//                        y2=is.readInt();
+//                        Graphics g = this.getGraphics();
+//                        g.drawLine(x1, y1, x2, y2);
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

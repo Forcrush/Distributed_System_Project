@@ -3,8 +3,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import javax.swing.JFrame;
-import whiteboard.*;
-import java.awt.*;
+
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
@@ -14,26 +13,31 @@ public class Client extends JFrame {
     int x1,x2,y1,y2,curchoice;
     DataInputStream is;
     DataOutputStream os;
-    ObjectInputStream iss;
+    ObjectInputStream ois;
+    ObjectOutputStream oos;
     Graphics g;
     WhiteBoard newPad;
+    Server adminServer;
     WhiteBoard.drawings nb;
-    String userName = "Client";
+    String userName;
     Socket client;
+
 
     public static void main(String args[]) throws IOException, ClassNotFoundException {
         Client CP = new Client();
-        CP.creat();
-        CP.ShowUI();
+        CP.welcomeFrame();
+
+
     }
     //产生一个Socket类用于连接服务器，并得到输入流
-    public void creat() {
+    public void create() {
         try {
-            client =new Socket("localhost", 9090);
+            client = new Socket("localhost", 9090);
 //            is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
             is = new DataInputStream(client.getInputStream());
-            iss = new ObjectInputStream(client.getInputStream());
+            ois = new ObjectInputStream(client.getInputStream());
             os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+            oos = new ObjectOutputStream((new BufferedOutputStream(client.getOutputStream())));
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -62,9 +66,91 @@ public class Client extends JFrame {
             });
         System.out.println("5 ininini");
         g = newPad.getGraphics();
+
+    }
+
+    public void sessionManagerPanel() throws IOException, ClassNotFoundException{
+        JFrame sessionManagerFrame = new JFrame("Session Manager");
+        // create a object of JTextField with 16 columns and a given initial text
+        JTextArea sessionManagerText = new JTextArea();
+        sessionManagerFrame.add(sessionManagerText);
+        sessionManagerFrame.setSize(300, 300);
+        sessionManagerFrame.show();
+
+        while (ois.available() > 0) {
+            User user = (User)ois.readObject();
+            sessionManagerText.append(user.toString());
+        }
+    }
+
+
+
+    public void welcomeFrame() throws IOException, ClassNotFoundException{
+
+        JFrame welcomeFrame = new JFrame("Welcome to PowerPuff Paint");
+        // create a object of JTextField with 16 columns and a given initial text
+        JTextField welcomeText = new JTextField("Enter username",16);
+        // create a new button
+        JButton welcomeButton = new JButton("Submit");
+            welcomeButton.addActionListener(
+                    new ActionListener() {
+                public void actionPerformed(ActionEvent e)  {
+
+                    try{
+                        //if (!adminServer.userArrayList.contains(welcomeText.getText())) {
+                        userName = welcomeText.getText();
+                        welcomeFrame.dispose();
+                        create();
+
+                        //create an object of User
+                        //User currentUser = new User(adminServer.counter, userName, client);
+
+                        //send user object to server to add user to user list
+                        os.writeUTF(userName);
+                        //oos.writeObject(client);
+
+                        //Show whiteboard pane for client user
+                        ShowUI();
+                        //if(Server.counter==1){
+                            sessionManagerPanel();
+                        //}
+
+
+
+                    }catch (Exception w){
+                        w.printStackTrace();
+                    }
+
+
+                    // set the text of field to blank
+                    welcomeText.setText("");
+                }
+            });
+        // add buttons and textfield to panel
+        JPanel welcomePanel = new JPanel();
+        welcomePanel.add(welcomeButton);
+        welcomePanel.add(welcomeText);
+
+        // add panel to frame
+        welcomeFrame.add(welcomePanel);
+
+        // set the size of frame
+        welcomeFrame.setSize(300, 60);
+
+        welcomeFrame.show();
+
+    }
+
+}
+
+
+
+
+
+
 //        while (true) {
 //            try {
-////                nb = (WhiteBoard.drawings)iss.readObject();
+////                nb = (WhiteBoard.drawings)ois.readObject();
 //                System.out.println("Get ininini");
 //                ArrayList<Integer> coordinate = new ArrayList<Integer>();
 //                for(int i = 0; i < 4; i++) {
@@ -87,22 +173,22 @@ public class Client extends JFrame {
 ////                os.writeInt(newPad.getNewOb().x2);
 ////                os.writeInt(newPad.getNewOb().y2);
 ////                os.flush();
-//                    
+//
 //            } catch (IOException e) {
 //            	e.printStackTrace();
 //            }
 //        catch (ClassNotFoundException ee) {
 //            ee.printStackTrace();
 //        }
-        }
 
-    }
+
+
     //将is输入流终中的坐标得到，并根据坐标信息画出相应的线段。
 //    @Override
 //    public void run() {
 //        while (true) {
 //            try {
-////                    nb = (WhiteBoard.drawings)iss.readObject();
+////                    nb = (WhiteBoard.drawings)ois.readObject();
 ////                    System.out.println("Get suc");
 //
 //                    x1=is.read();

@@ -4,8 +4,7 @@
 * @Last Modified by:   Puffrora
 * @Last Modified time: 2019-10-01 15:25:26
 */
-import whiteboard.*;
-import whiteboard.WhiteBoard.drawings;
+
 
 import java.awt.*;
 import java.awt.event.*;
@@ -20,15 +19,19 @@ public class Server {
     static int port = 9090;
     static int counter = 0;
     static String userName = "Server";
-    volatile static ArrayList<drawings> sumDraw = new ArrayList<drawings>();
+    volatile static ArrayList<WhiteBoard.drawings> sumDraw = new ArrayList<WhiteBoard.drawings>();
     static WhiteBoard newPad;
+    static ArrayList<User> userArrayList = new ArrayList<>(10);
 
     public static void main(String args[]) {
+
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            newPad = new WhiteBoard(userName);
+
         } catch (Exception e) {
         }
-        newPad = new WhiteBoard(userName);
+
         newPad.setTitle(userName);
         newPad.addWindowListener(
                 new WindowAdapter() {
@@ -49,7 +52,7 @@ public class Server {
                     ex.printStackTrace();
                 }
                 counter++;
-                System.out.println("Client " + counter + ": Applying for connection! in port num: " + client.getPort());
+                System.out.println("Client " + counter + ": Applying for connection in port num: " + client.getPort());
 
                 // Start a new thread for a connection
                 ServerThread t = new ServerThread(client);
@@ -67,6 +70,7 @@ public class Server {
         // And the drawings will be combined with other drawings then send back to the client.
         Socket client;
         DataInputStream is;
+        DataInputStream is2;
         DataOutputStream os;
         ObjectOutputStream oos;
         ObjectInputStream ois;
@@ -85,16 +89,23 @@ public class Server {
                 os = new DataOutputStream(client.getOutputStream());
                 oos = new ObjectOutputStream(client.getOutputStream());
                 is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
-
                 ois = new ObjectInputStream(client.getInputStream());
 
+              //add user to list
+//                String user = is2.readUTF();
+//                User currentUser = new User(counter, user);
+//                userArrayList.add(currentUser);
+//                oos.writeObject(currentUser);
+//                oos.close();
+//                is2.close();
 
                 //x1,y1为起始点坐标，x2,y2为终点坐标。四个点的初始值设为0
 
                 int count = 0;
                 Graphics g = newPad.getGraphics();
                 while (is.available() > 0) {
-                	int x1 = is.readInt();
+
+                    int x1 = is.readInt();
                 	int y1 = is.readInt();
                 	int x2 = is.readInt();
                 	int y2 = is.readInt();
@@ -102,7 +113,7 @@ public class Server {
 //                    WhiteBoard.drawings draw = (WhiteBoard.drawings) ois.readObject();
 //                    sumDraw.add(draw);
 //                    oos.writeObject(sumDraw);
-                	
+
                 	
                 	
                 	
@@ -116,7 +127,7 @@ public class Server {
 //
 //                        ArrayList<Integer> coordinate = new ArrayList<Integer>();
 //
-//    //                            oss.writeObject(newOb);
+//    //                            oos.writeObject(newOb);
 //                        coordinate.add(newOb.x1);
 //                        coordinate.add(newOb.y1);
 //                        coordinate.add(newOb.x2);
@@ -142,7 +153,7 @@ public class Server {
 //    //                        g.drawLine(x1, y1, x2, y2);
 //                    }
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

@@ -4,7 +4,6 @@
  * @Last Modified by:   Puffrora
  * @Last Modified time: 2019-10-06 09:31:23
  */
-package whiteboard;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -14,11 +13,8 @@ import java.io.*;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import javax.net.ServerSocketFactory;
 
 public class WhiteBoard extends JFrame
 {
@@ -29,6 +25,7 @@ public class WhiteBoard extends JFrame
     private Color color = Color.black;
     private JLabel statusBar;
     public DrawPanel drawingArea;
+
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private int width = 500, height = 500;
@@ -37,14 +34,15 @@ public class WhiteBoard extends JFrame
     int R, G, B;
     int genre1, genre2;
     int index = 0;
+
     String styleCur;
     JToolBar buttonPanel;
     JCheckBox bold, italic;
     JComboBox<String> styles;
     public volatile drawings newOb = null,newOb2=null;
     public ArrayList<drawings> iArray = new ArrayList<drawings>();
-    
-    
+
+
     private ObjectOutputStream dataOutput;
     private ObjectInputStream dataInput;
     DataOutputStream os;
@@ -56,8 +54,10 @@ public class WhiteBoard extends JFrame
     private static int port = 9090;
     String userName;
 
+
+
     public WhiteBoard(String userName) {
-    	super("Distributed WhiteBoard");
+        super("Distributed WhiteBoard");
     	this.userName = userName;
     	creatWB();
     }
@@ -72,7 +72,8 @@ public class WhiteBoard extends JFrame
     	creatWB();
     	receiveData();
     }
-    
+
+
     public void creatWB() {
         JMenuBar bar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
@@ -143,7 +144,7 @@ public class WhiteBoard extends JFrame
         JMenu helpMenu = new JMenu("Help");
         helpMenu.setMnemonic('H');
 
-        JMenuItem aboutItem = new JMenuItem("About this Whiteboard!");
+        JMenuItem aboutItem = new JMenuItem("About this Whiteboard");
         aboutItem.setMnemonic('A');
         aboutItem.addActionListener(
                 new ActionListener() {
@@ -222,16 +223,21 @@ public class WhiteBoard extends JFrame
         setSize(width, height);
         setVisible(true);
 
-    
+        if (Server.counter == 1){
+
+
+        }
+
+
     }
-    
+
 //    void clientCon(Socket client, int number) {
 //        Socket clientSocket = client;
 //            try{
 //                //连接成功后得到数据输出流
 ////                os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
 //                os = new DataOutputStream(client.getOutputStream());
-//                oss = new ObjectOutputStream(clientSocket.getOutputStream());
+//                oos = new ObjectOutputStream(clientSocket.getOutputStream());
 //                is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
 //
 //            }  catch (IOException e) {
@@ -250,7 +256,7 @@ public class WhiteBoard extends JFrame
 //
 //                        ArrayList<Integer> coordinate = new ArrayList<Integer>();
 //                       
-////                            oss.writeObject(newOb);
+////                            oos.writeObject(newOb);
 //                        coordinate.add(newOb.x1);
 //                        coordinate.add(newOb.y1);
 //                        coordinate.add(newOb.x2);
@@ -281,7 +287,7 @@ public class WhiteBoard extends JFrame
 //                }
 //            }
 //        }   
-          
+
     public class ButtonHandlery implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (int j = 3; j < choices.length - 3; j++) {
@@ -364,7 +370,7 @@ public class WhiteBoard extends JFrame
 
     }
     class mouseEvent2 implements MouseMotionListener{
-        
+
         //在设置监听器的同时启动监听器对象的线程
         public void mouseDragged(MouseEvent e) {
             statusBar.setText("     Mouse Dragged @:[" + e.getX() +
@@ -405,7 +411,7 @@ public class WhiteBoard extends JFrame
     	os.writeInt(newOb.y2);
         os.flush();
     }
-    
+
     public void receiveData() throws IOException, ClassNotFoundException {
 		while (is.available() > 0) {
 			int x1 = is.readInt();
@@ -512,7 +518,7 @@ public class WhiteBoard extends JFrame
         repaint();
         createNewItem();
         //System.out.println(index+'/'+iArray.get(index).x1+'/'+iArray.get(index).y1+'/'+iArray.get(index).x2+'/'+iArray.get(index).y2);
-        
+
     }
 
     public void chooseColor() {

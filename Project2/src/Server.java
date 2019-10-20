@@ -1,9 +1,3 @@
-/*
-* @Author: Puffrora
-* @Date:   2019-09-20 15:35:02
-* @Last Modified by:   Puffrora
-* @Last Modified time: 2019-10-01 15:25:26
-*/
 import whiteboard.*;
 import whiteboard.WhiteBoard.drawings;
 
@@ -21,6 +15,7 @@ public class Server {
     static int counter = 0;
     static String userName = "Server";
     volatile static ArrayList<drawings> sumDraw = new ArrayList<drawings>();
+    static ArrayList<Socket> clientList = new ArrayList<Socket>();
     static WhiteBoard newPad;
 
     public static void main(String args[]) {
@@ -74,15 +69,16 @@ public class Server {
 
         ServerThread(Socket client) {
             this.client = client;
+            clientList.add(client);
         }
 
         public void run() {
             String clientDrawing;
             try {
                 //连接成功后得到数据输出流
-//                os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+                os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
                 in = new BufferedReader(new InputStreamReader(client.getInputStream(), "UTF-8"));
-                os = new DataOutputStream(client.getOutputStream());
+//                os = new DataOutputStream(client.getOutputStream());
                 oos = new ObjectOutputStream(client.getOutputStream());
                 is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
 
@@ -91,14 +87,30 @@ public class Server {
 
                 //x1,y1为起始点坐标，x2,y2为终点坐标。四个点的初始值设为0
 
+                
                 int count = 0;
                 Graphics g = newPad.getGraphics();
-                while (is.available() > 0) {
+                while (true) {
                 	int x1 = is.readInt();
+                	if(x1 < -10000) {
+                		x1 = is.readInt();
+                	}
                 	int y1 = is.readInt();
                 	int x2 = is.readInt();
                 	int y2 = is.readInt();
-                	g.drawLine(y1, x1, y2, x2);
+                	System.out.println("x1 = " + x1);
+                	System.out.println("y1 = " + y1);
+                	System.out.println("x2 = " + x2);
+                	System.out.println("y2 = " + y2);
+                	g.drawLine(x1, y1, x2, y2);
+                	for(Socket client:clientList) {
+                		os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+                		os.writeInt(x1);
+                		os.writeInt(y1);
+                		os.writeInt(x2);
+                		os.writeInt(y2);
+                		os.flush();
+                	}
 //                    WhiteBoard.drawings draw = (WhiteBoard.drawings) ois.readObject();
 //                    sumDraw.add(draw);
 //                    oos.writeObject(sumDraw);

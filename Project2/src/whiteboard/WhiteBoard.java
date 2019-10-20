@@ -1,9 +1,3 @@
-/*
- * @Author: Puffrora
- * @Date:   2019-09-13 12:36:07
- * @Last Modified by:   Puffrora
- * @Last Modified time: 2019-10-06 09:31:23
- */
 package whiteboard;
 
 import java.awt.*;
@@ -407,7 +401,7 @@ public class WhiteBoard extends JFrame
     }
     
     public void receiveData() throws IOException, ClassNotFoundException {
-		while (is.available() > 0) {
+		while (true) {
 			int x1 = is.readInt();
 			int y1 = is.readInt();
 			int x2 = is.readInt();

@@ -357,9 +357,7 @@ public class WhiteBoard extends JFrame
         }
 
     }
-    class mouseEvent2 implements MouseMotionListener{
-        
-        //在设置监听器的同时启动监听器对象的线程
+    class mouseEvent2 implements MouseMotionListener {
         public void mouseDragged(MouseEvent e) {
             statusBar.setText("     Mouse Dragged @:[" + e.getX() +
                     ", " + e.getY() + "]");

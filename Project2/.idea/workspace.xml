@@ -2,24 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd7d413b-af3a-4cdb-8e5f-f3791214cb11" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$ButtonHandlerx.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$ButtonHandlerx.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$ButtonHandlery.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$ButtonHandlery.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$DrawPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$DrawPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$checkBoxHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$checkBoxHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$mouseEvent1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$mouseEvent1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$mouseEvent2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard$mouseEvent2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project2/whiteboard/WhiteBoard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/whiteboard/WhiteBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/whiteboard/WhiteBoard.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -37,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/whiteboard/WhiteBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="409" column="5" lean-forward="true" selection-start-line="409" selection-start-column="5" selection-end-line="409" selection-end-column="5" />
+            <state relative-caret-position="252">
+              <caret line="405" column="34" lean-forward="true" selection-start-line="405" selection-start-column="34" selection-end-line="405" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1169#1179#0" expanded="true" />
@@ -70,8 +52,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="541">
-              <caret line="62" column="21" selection-start-line="62" selection-start-column="21" selection-end-line="62" selection-end-column="21" />
+            <state relative-caret-position="182">
+              <caret line="106" column="102" lean-forward="true" selection-start-line="106" selection-start-column="24" selection-end-line="106" selection-end-column="102" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -79,7 +64,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
+            <state relative-caret-position="72">
               <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
             </state>
           </provider>
@@ -104,6 +89,8 @@
       <find>[index]</find>
       <find>output</find>
       <find>Sock</find>
+      <find>is</find>
+      <find>oos</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -129,6 +116,7 @@
         <option value="$PROJECT_DIR$/src/cli.java" />
         <option value="$PROJECT_DIR$/src/server.java" />
         <option value="$PROJECT_DIR$/src/whiteboard/WhiteBoard.java" />
+        <option value="$PROJECT_DIR$/src/Server.java" />
       </list>
     </option>
   </component>
@@ -288,8 +276,8 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32903227" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33064517" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32903227" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33064517" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -368,10 +356,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/whiteboard/WhiteBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="409" column="5" lean-forward="true" selection-start-line="409" selection-start-column="5" selection-end-line="409" selection-end-column="5" />
+        <state relative-caret-position="252">
+          <caret line="405" column="34" lean-forward="true" selection-start-line="405" selection-start-column="34" selection-end-line="405" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1169#1179#0" expanded="true" />
@@ -399,17 +394,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="62" column="21" selection-start-line="62" selection-start-column="21" selection-end-line="62" selection-end-column="21" />
+        <state relative-caret-position="182">
+          <caret line="106" column="102" lean-forward="true" selection-start-line="106" selection-start-column="24" selection-end-line="106" selection-end-column="102" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

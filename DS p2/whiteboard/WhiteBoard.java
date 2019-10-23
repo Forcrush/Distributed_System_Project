@@ -1,32 +1,59 @@
+/*
+ * @Author: Puffrora
+ * @Date:   2019-09-13 12:36:07
+ * @Last Modified by:   Puffrora
+ * @Last Modified time: 2019-10-23 12:45:03
+ */
 package whiteboard;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
 import java.io.*;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.net.ServerSocket;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
-import javax.net.ServerSocketFactory;
 
 public class WhiteBoard extends JFrame
 {
     private JButton choices[];
-    private String names[] = {"New", "Open", "Save", "Pencil", "Line", "Rect", "Oval", "Circle", "Rubber", "Color", "Stroke", "Word"};
-    private String styleNames[] = {"Garamond"};
+    private String names[] = {
+    	"New", "Open", "Save", "Pencil", "Line", "Rect", "fRect", "Oval", "fOval", "Circle", 
+    	"fCircle", "RoundRect", "frRect", "Rubber", "Color", "Stroke", "Word"};
+    private String styleNames[] = {
+        " 宋体 ", " 隶书 ", " Times New Roman ", " Serif ", 
+        " Monospaced ", " SonsSerif ", " Garamond "
+    };
     private Icon items[];
+    private String tipText[] = {
+	    "Draw a new picture",
+	    "Open a saved picture",
+	    "Save current drawing",
+	    "Draw at will",
+	    "Draw a straight line",
+	    "Draw a rectangle",
+	    "Fill a ractangle",
+	    "Draw an oval",
+	    "Fill an oval",
+	    "Draw a circle",
+	    "Fill a circle",
+	    "Draw a round rectangle",
+	    "Fill a round rectangle",
+	    "Erase at will",
+	    "Choose current drawing color",
+	    "Set current drawing stroke",
+	    "Write down what u want"
+    };
     private Color color = Color.black;
     private JLabel statusBar;
     public DrawPanel drawingArea;
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private int width = 500, height = 500;
-    private int currentChoice = 3;
+    private volatile int currentChoice = 3;
     private float stroke = 1.0f;
     int R, G, B;
     int genre1, genre2;
@@ -35,39 +62,41 @@ public class WhiteBoard extends JFrame
     JToolBar buttonPanel;
     JCheckBox bold, italic;
     JComboBox<String> styles;
-    public volatile drawings newOb = null,newOb2=null;
-    public ArrayList<drawings> iArray = new ArrayList<drawings>();
-    
-    
-    private ObjectOutputStream dataOutput;
-    private ObjectInputStream dataInput;
+    drawings[] iArray = new drawings[5000];
+
     DataOutputStream os;
     DataInputStream is;
     ObjectOutputStream oos;
+    ObjectInputStream ois;
     int number = 0;
     Socket client;
     private static int counter = 0;
     private static int port = 9090;
     String userName;
 
+    volatile drawings newOb = null;
+
     public WhiteBoard(String userName) {
     	super("Distributed WhiteBoard");
     	this.userName = userName;
-    	creatWB();
+    	createWB();
     }
+
     public WhiteBoard(String userName, Socket client) throws IOException, ClassNotFoundException {
     	super("Distributed WhiteBoard");
     	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
         oos = new ObjectOutputStream(client.getOutputStream());
         is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
-        dataOutput = new ObjectOutputStream(client.getOutputStream());
+        System.out.println("error1");
+//        ois = new ObjectInputStream(client.getInputStream());
+        System.out.println("error2");
     	this.userName = userName;
     	this.client = client;
-    	creatWB();
+    	createWB();
     	receiveData();
     }
-    
-    public void creatWB() {
+
+    public void createWB() {
         JMenuBar bar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         fileMenu.setMnemonic('F');
@@ -154,19 +183,28 @@ public class WhiteBoard extends JFrame
         drawingArea = new DrawPanel();
         choices = new JButton[names.length];
         buttonPanel = new JToolBar(JToolBar.HORIZONTAL);
-        ButtonHandlery handlery = new ButtonHandlery();
+
         ButtonHandlerx handlerx = new ButtonHandlerx();
+        ButtonHandlery handlery = new ButtonHandlery();
+
         for (int i = 0; i < choices.length; i++) {
+        	// 如果在jbuilder下运行本程序，则应该用这条语句导入图片
+            // items[i] = new ImageIcon(WhiteBoard.class.getResource(names[i] +".gif"));
+            // 默认的在jdk或者jcreator下运行，用此语句导入图片
             items[i] = new ImageIcon("pic/" + names[i] + ".png");
             choices[i] = new JButton("", items[i]);
+            choices[i].setToolTipText(tipText[i]);
             buttonPanel.add(choices[i]);
         }
+
         for (int i = 3; i < choices.length - 3; i++) {
             choices[i].addActionListener(handlery);
         }
+
         for (int i = 1; i < 4; i++) {
             choices[choices.length - i].addActionListener(handlerx);
         }
+
         choices[0].addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -185,6 +223,7 @@ public class WhiteBoard extends JFrame
                         saveFile();
                     }
                 });
+
         styles = new JComboBox<String>(styleNames);
         styles.setMaximumRowCount(8);
         styles.addItemListener(
@@ -216,66 +255,9 @@ public class WhiteBoard extends JFrame
         setSize(width, height);
         setVisible(true);
 
-    
+        
     }
-    
-//    void clientCon(Socket client, int number) {
-//        Socket clientSocket = client;
-//            try{
-//                //连接成功后得到数据输出流
-////                os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
-//                os = new DataOutputStream(client.getOutputStream());
-//                oss = new ObjectOutputStream(clientSocket.getOutputStream());
-//                is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
-//
-//            }  catch (IOException e) {
-//                e.printStackTrace();
-//            }   
-//            //x1,y1为起始点坐标，x2,y2为终点坐标。四个点的初始值设为0
-//
-//            int count = 0;
-//            while (true) {
-//                if(newOb != null) {
-//                    try {
-//
-//                        System.out.println(newOb.x1+" "+newOb.y2+" "+newOb.x2+" "+newOb.y2);
-//                        System.out.println(clientSocket.getPort()+"cacacaa"+clientSocket.getLocalPort());
-//                        System.out.println(number);
-//
-//                        ArrayList<Integer> coordinate = new ArrayList<Integer>();
-//                       
-////                            oss.writeObject(newOb);
-//                        coordinate.add(newOb.x1);
-//                        coordinate.add(newOb.y1);
-//                        coordinate.add(newOb.x2);
-//                        coordinate.add(newOb.y2);
-//                        for(int i = 0; i < 4; i++) {
-//                            os.writeInt(coordinate.get(i));
-//                            System.out.println("wrote " + i);
-//                        }
-//                        count+=1;
-//                        os.flush();
-////                        if(count == 20) {
-////                            os.flush();
-////                            count = 0;
-////                        }
-//
-//                        newOb = null;
-////                        int x1, x2, y1, y2;
-////                        x1=is.readInt();
-////                        y1=is.readInt();
-////                        x2=is.readInt();
-////                        y2=is.readInt();
-////                        Graphics g = this.getGraphics();
-////                        g.drawLine(x1, y1, x2, y2);
-//                    } catch (IOException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }   
-          
+
     public class ButtonHandlery implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (int j = 3; j < choices.length - 3; j++) {
@@ -287,6 +269,7 @@ public class WhiteBoard extends JFrame
             }
         }
     }
+
     public class ButtonHandlerx implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == choices[choices.length - 3]) {
@@ -305,28 +288,29 @@ public class WhiteBoard extends JFrame
             }
         }
     }
+
     class mouseEvent1 extends MouseAdapter{
         public void mousePressed(MouseEvent e) {
             statusBar.setText("     Mouse Pressed @:[" + e.getX() +
                     ", " + e.getY() + "]");
-            iArray.get(index).x1 = iArray.get(index).x2 = e.getX();
-            iArray.get(index).y1 = iArray.get(index).y2 = e.getY();
-            if (currentChoice == 3 || currentChoice == 8) {
-                iArray.get(index).x1 = iArray.get(index).x2 = e.getX();
-                iArray.get(index).y1 = iArray.get(index).y2 = e.getY();
+            iArray[index].x1 = iArray[index].x2 = e.getX();
+            iArray[index].y1 = iArray[index].y2 = e.getY();
+            if (currentChoice == 3 || currentChoice == 13) {
+                iArray[index].x1 = iArray[index].x2 = e.getX();
+                iArray[index].y1 = iArray[index].y2 = e.getY();
                 index++;
                 createNewItem();
             }
-            if (currentChoice == 9) {
-                iArray.get(index).x1 = e.getX();
-                iArray.get(index).y1 = e.getY();
+            if (currentChoice == 14) {
+                iArray[index].x1 = e.getX();
+                iArray[index].y1 = e.getY();
                 String input;
                 input = JOptionPane.showInputDialog(
                         "Please input the text you want!");
-                iArray.get(index).s1 = input;
-                iArray.get(index).x2 = genre1;
-                iArray.get(index).y2 = genre2;
-                iArray.get(index).s2 = styleCur;
+                iArray[index].s1 = input;
+                iArray[index].x2 = genre1;
+                iArray[index].y2 = genre2;
+                iArray[index].s2 = styleCur;
                 index++;
                 createNewItem();
                 drawingArea.repaint();
@@ -336,13 +320,12 @@ public class WhiteBoard extends JFrame
             statusBar.setText("     Mouse Released @:[" + e.getX() +
                     ", " + e.getY() + "]");
             if (currentChoice == 3 || currentChoice == 13) {
-                iArray.get(index).x1 = e.getX();
-                iArray.get(index).y1 = e.getY();
+                iArray[index].x1 = e.getX();
+                iArray[index].y1 = e.getY();
             }
-            iArray.get(index).x2 = e.getX();
-            iArray.get(index).y2 = e.getY();
-            newOb = iArray.get(index);
-            newOb2 = iArray.get(index);
+            iArray[index].x2 = e.getX();
+            iArray[index].y2 = e.getY();
+            newOb = iArray[index];
             repaint();
             index++;
             createNewItem();
@@ -357,30 +340,32 @@ public class WhiteBoard extends JFrame
         }
 
     }
-    class mouseEvent2 implements MouseMotionListener {
+
+    class mouseEvent2 implements MouseMotionListener{
+        ObjectOutputStream oss;
         public void mouseDragged(MouseEvent e) {
             statusBar.setText("     Mouse Dragged @:[" + e.getX() +
                     ", " + e.getY() + "]");
 
-            if (currentChoice == 3 || currentChoice == 8) {
-                iArray.get(index-1).x1 = iArray.get(index).x2 = iArray.get(index).x1 = e.getX();
-                iArray.get(index-1).y1 = iArray.get(index).y2 = iArray.get(index).y1 = e.getY();
-                newOb = iArray.get(index);
-                newOb2 = iArray.get(index);
+            if (currentChoice == 3 || currentChoice == 13) {
+                iArray[index - 1].x1 = iArray[index].x2 = iArray[index].x1 = e.getX();
+                iArray[index - 1].y1 = iArray[index].y2 = iArray[index].y1 = e.getY();
+                newOb = iArray[index];
                 index++;
                 createNewItem();
             } else {
-                iArray.get(index).x2 = e.getX();
-                iArray.get(index).y2 = e.getY();
+                iArray[index].x2 = e.getX();
+                iArray[index].y2 = e.getY();
             }
             try {
-            	if(!userName.equals("Server")) {
+            	if (!userName.equals("Server")){
             		sendData(newOb);
             	}
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+            } catch (IOException e1) {
+            	e1.printStackTrace();
+            	System.out.println("IOException");
+            }
+
             repaint();
         }
         public void mouseMoved(MouseEvent e) {
@@ -391,15 +376,23 @@ public class WhiteBoard extends JFrame
     }
 
     public void sendData(drawings newOb) throws IOException {
-    	os.writeInt(newOb.x1);
-    	os.writeInt(newOb.y1);
-    	os.writeInt(newOb.x2);
-    	os.writeInt(newOb.y2);
-        os.flush();
+//    	if(newOb != null && newOb.x1 != 0 && newOb.y1 != 0) {
+//    		oos.writeObject(newOb);
+    		os.writeInt(newOb.x1);
+        	os.writeInt(newOb.y1);
+        	os.writeInt(newOb.x2);
+        	os.writeInt(newOb.y2);
+            os.flush();
+//    	}
     }
     
     public void receiveData() throws IOException, ClassNotFoundException {
-		while (true) {
+//    	ois = new ObjectInputStream(client.getInputStream());
+//		while (true) {
+//			drawings receiveOb = (drawings) ois.readObject();
+//			createNewItemInClient(receiveOb);
+//		}
+    	while (true) {
 			int x1 = is.readInt();
 			int y1 = is.readInt();
 			int x2 = is.readInt();
@@ -408,7 +401,6 @@ public class WhiteBoard extends JFrame
 			drawer.drawLine(x1, y1, x2, y2);
 		}
 	}
-
     private class checkBoxHandler implements ItemListener {
         public void itemStateChanged(ItemEvent e) {
             if (e.getSource() == bold) {
@@ -427,6 +419,7 @@ public class WhiteBoard extends JFrame
             }
         }
     }
+
     class DrawPanel extends JPanel {
         public DrawPanel() {
             setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
@@ -442,7 +435,7 @@ public class WhiteBoard extends JFrame
             Graphics2D g2d = (Graphics2D) g;
             int j = 0;
             while (j <= index) {
-                draw(g2d, iArray.get(j));
+                draw(g2d, iArray[j]);
                 j++;
             }
         }
@@ -451,8 +444,9 @@ public class WhiteBoard extends JFrame
             i.draw(g2d);
         }
     }
+
     void createNewItem() {
-        if (currentChoice == 9)
+        if (currentChoice == 14)
         {
             drawingArea.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
         } else {
@@ -460,41 +454,70 @@ public class WhiteBoard extends JFrame
         }
         switch (currentChoice) {
             case 3:
-            	iArray.add(index, new Pencil());
+                iArray[index] = new Pencil();
                 break;
             case 4:
-                iArray.add(index, new Line());
+                iArray[index] = new Line();
                 break;
             case 5:
-            	iArray.add(index, new Rect());
+                iArray[index] = new Rect();
                 break;
             case 6:
-            	iArray.add(index, new Oval());
+                iArray[index] = new fillRect();
                 break;
             case 7:
-            	iArray.add(index, new Circle());
+                iArray[index] = new Oval();
                 break;
             case 8:
-            	iArray.add(index, new Rubber());
+                iArray[index] = new fillOval();
                 break;
             case 9:
-            	iArray.add(index, new Word());
+                iArray[index] = new Circle();
+                break;
+            case 10:
+                iArray[index] = new fillCircle();
+                break;
+            case 11:
+                iArray[index] = new RoundRect();
+                break;
+            case 12:
+                iArray[index] = new fillRoundRect();
+                break;
+            case 13:
+                iArray[index] = new Rubber();
+                break;
+            case 14:
+                iArray[index] = new Word();
                 break;
         }
-        iArray.get(index).type = currentChoice;
-        iArray.get(index).R = R;
-        iArray.get(index).G = G;
-        iArray.get(index).B = B;
-        iArray.get(index).stroke = stroke;
+        iArray[index].type = currentChoice;
+        System.out.println("Set index: "+index+" choice as "+currentChoice);
+        iArray[index].R = R;
+        iArray[index].G = G;
+        iArray[index].B = B;
+        iArray[index].stroke = stroke;
+    }
+
+    public void testClient() {
+        System.out.println("testtesttest:  "+index);
+        index++;
     }
 
     public void createNewItemInClient(drawings infoOb) {
 
-        iArray.get(index).x1 = infoOb.x1;
-        iArray.get(index).y1 = infoOb.y1;
-        iArray.get(index).x2 = infoOb.x2;
-        iArray.get(index).y2 = infoOb.y2;
+        iArray[index].x1 = infoOb.x1;
+        iArray[index].y1 = infoOb.y1;
+        iArray[index].x2 = infoOb.x2;
+        iArray[index].y2 = infoOb.y2;
         currentChoice = infoOb.type;
+        // ===== testing clause
+        if (index > 1){
+        	if (currentChoice != iArray[index-1].type) {
+        		System.out.println("index:"+index+" currentChoice "+currentChoice+" index-1~choice: "+iArray[index-1].type);
+        		
+        	}
+        }
+        // ===== 
         R = infoOb.R;
         G = infoOb.G;
         B = infoOb.B;
@@ -503,7 +526,7 @@ public class WhiteBoard extends JFrame
         index ++;
         repaint();
         createNewItem();
-        //System.out.println(index+'/'+iArray.get(index).x1+'/'+iArray.get(index).y1+'/'+iArray.get(index).x2+'/'+iArray.get(index).y2);
+        //System.out.println(index+" "+iArray[index].x1+" "+iArray[index].y1+" "+iArray[index].x2+" "+iArray[index].y2);
         
     }
 
@@ -513,17 +536,19 @@ public class WhiteBoard extends JFrame
         R = color.getRed();
         G = color.getGreen();
         B = color.getBlue();
-        iArray.get(index).R = R;
-        iArray.get(index).G = G;
-        iArray.get(index).B = B;
+        iArray[index].R = R;
+        iArray[index].G = G;
+        iArray[index].B = B;
     }
+
     public void setStroke() {
         String input;
         input = JOptionPane.showInputDialog(
                 "Please input the size of stroke!");
         stroke = Float.parseFloat(input);
-        iArray.get(index).stroke = stroke;
+        iArray[index].stroke = stroke;
     }
+
     public void saveFile() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -544,7 +569,7 @@ public class WhiteBoard extends JFrame
                 drawings record;
                 output.writeInt(index);
                 for (int i = 0; i < index; i++) {
-                    drawings p = iArray.get(i);
+                    drawings p = iArray[i];
                     output.writeObject(p);
                     output.flush();
                 }
@@ -555,6 +580,7 @@ public class WhiteBoard extends JFrame
             }
         }
     }
+
     public void loadFile() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -576,7 +602,7 @@ public class WhiteBoard extends JFrame
                 countNumber = input.readInt();
                 for (index = 0; index < countNumber; index++) {
                     inputRecord = (drawings) input.readObject();
-                    iArray.add(index, inputRecord);
+                    iArray[index] = inputRecord;
                 }
                 createNewItem();
                 input.close();
@@ -593,6 +619,7 @@ public class WhiteBoard extends JFrame
             }
         }
     }
+
     public void newFile() {
         index = 0;
         currentChoice = 3;
@@ -613,7 +640,7 @@ public class WhiteBoard extends JFrame
         void draw(Graphics2D g2d) {};
     }
 
-    class Pencil extends drawings implements Serializable
+    class Pencil extends drawings
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(R, G, B));
@@ -624,7 +651,7 @@ public class WhiteBoard extends JFrame
     }
 
 
-    class Line extends drawings implements Serializable
+    class Line extends drawings
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(R, G, B));
@@ -635,7 +662,7 @@ public class WhiteBoard extends JFrame
     }
 
 
-    class Rect extends drawings implements Serializable
+    class Rect extends drawings
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(R, G, B));
@@ -645,7 +672,17 @@ public class WhiteBoard extends JFrame
         }
     }
 
-    class Oval extends drawings implements Serializable
+	class fillRect extends drawings
+	{
+	    void draw(Graphics2D g2d) {
+	        g2d.setPaint(new Color(R, G, B));
+	        g2d.setStroke(new BasicStroke(stroke));
+	        g2d.fillRect(Math.min(x1, x2), Math.min(y1, y2),
+	                Math.abs(x1 - x2), Math.abs(y1 - y2));
+	    }
+	}
+
+    class Oval extends drawings
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(R, G, B));
@@ -655,7 +692,17 @@ public class WhiteBoard extends JFrame
         }
     }
 
-    class Circle extends drawings implements Serializable
+	class fillOval extends drawings
+	{
+	    void draw(Graphics2D g2d) {
+	        g2d.setPaint(new Color(R, G, B));
+	        g2d.setStroke(new BasicStroke(stroke));
+	        g2d.fillOval(Math.min(x1, x2), Math.min(y1, y2),
+	                Math.abs(x1 - x2), Math.abs(y1 - y2));
+	    }
+	}
+
+    class Circle extends drawings
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(R, G, B));
@@ -666,7 +713,42 @@ public class WhiteBoard extends JFrame
         }
     }
 
-    class Rubber extends drawings implements Serializable
+	class fillCircle extends drawings
+	{
+	    void draw(Graphics2D g2d) {
+	        g2d.setPaint(new Color(R, G, B));
+	        g2d.setStroke(new BasicStroke(stroke));
+	        g2d.fillOval(Math.min(x1, x2), Math.min(y1, y2),
+	                Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2)),
+	                Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2)));
+	    }
+	}
+
+
+	class RoundRect extends drawings
+	{
+	    void draw(Graphics2D g2d) {
+	        g2d.setPaint(new Color(R, G, B));
+	        g2d.setStroke(new BasicStroke(stroke));
+	        g2d.drawRoundRect(Math.min(x1, x2), Math.min(y1, y2),
+	                Math.abs(x1 - x2), Math.abs(y1 - y2),
+	                50, 35);
+	    }
+	}
+
+
+	class fillRoundRect extends drawings
+	{
+	    void draw(Graphics2D g2d) {
+	        g2d.setPaint(new Color(R, G, B));
+	        g2d.setStroke(new BasicStroke(stroke));
+	        g2d.fillRoundRect(Math.min(x1, x2), Math.min(y1, y2),
+	                Math.abs(x1 - x2), Math.abs(y1 - y2),
+	                50, 35);
+	    }
+	}
+
+    class Rubber extends drawings
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(255, 255, 255));
@@ -676,7 +758,7 @@ public class WhiteBoard extends JFrame
         }
     }
 
-    class Word extends drawings implements Serializable
+    class Word extends drawings
     {
         void draw(Graphics2D g2d) {
             g2d.setPaint(new Color(R, G, B));
@@ -685,10 +767,6 @@ public class WhiteBoard extends JFrame
                 g2d.drawString(s1, x1, y1);
             }
         }
-    }
-
-    public drawings getNewOb() {
-        return newOb;
     }
 
 }

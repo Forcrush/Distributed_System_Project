@@ -11,6 +11,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import ClientServer.CreateWhiteBoard;
+import whiteboard.WhiteBoard.drawings;
 
 import java.io.*;
 
@@ -91,9 +92,7 @@ public class WhiteBoard extends JFrame
     	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
         oos = new ObjectOutputStream(client.getOutputStream());
         is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
-        System.out.println("error1");
 //        ois = new ObjectInputStream(client.getInputStream());
-        System.out.println("error2");
     	this.userName = userName;
     	this.client = client;
     	createWB();
@@ -366,7 +365,6 @@ public class WhiteBoard extends JFrame
             		sendData(newOb);
             	}
             	else {
-            		
             		serverPad.drawToClient(newOb);
             	}
             } catch (IOException e1) {
@@ -384,30 +382,44 @@ public class WhiteBoard extends JFrame
     }
 
     public void sendData(drawings newOb) throws IOException {
-//    	if(newOb != null && newOb.x1 != 0 && newOb.y1 != 0) {
-//    		oos.writeObject(newOb);
-    		os.writeInt(newOb.x1);
-        	os.writeInt(newOb.y1);
-        	os.writeInt(newOb.x2);
-        	os.writeInt(newOb.y2);
-            os.flush();
-//    	}
+    	String data = newOb.x1 + "," + newOb.y1 + "," + newOb.x2 + "," + newOb.y2 + "," + newOb.R + "," + newOb.G + "," + newOb.B + "," + newOb.stroke + "," + newOb.type + "," + newOb.s1 + "," + newOb.s2;
+    	os.writeUTF(data);
+    	os.flush();
+    	System.out.println("in WB " + data);
+//		os.writeInt(newOb.x1);
+//    	os.writeInt(newOb.y1);
+//    	os.writeInt(newOb.x2);
+//    	os.writeInt(newOb.y2);
+//      os.flush();
     }
     
     public void receiveData() throws IOException, ClassNotFoundException {
-//    	ois = new ObjectInputStream(client.getInputStream());
-//		while (true) {
-//			drawings receiveOb = (drawings) ois.readObject();
-//			createNewItemInClient(receiveOb);
-//		}
     	while (true) {
-			int x1 = is.readInt();
-			int y1 = is.readInt();
-			int x2 = is.readInt();
-			int y2 = is.readInt();
-			Graphics drawer = this.getGraphics();
-			drawer.drawLine(x1, y1, x2, y2);
-		}
+    		String test = is.readUTF();
+        	String[] data = test.split(",");
+        	System.out.println("Server " + data.length + " " + data[4]);
+        	drawings newDraw = new drawings();
+        	newDraw.x1 = Integer.parseInt(data[0]);
+        	newDraw.y1 = Integer.parseInt(data[1]);
+        	newDraw.x2 = Integer.parseInt(data[2]);
+        	newDraw.y2 = Integer.parseInt(data[3]);
+        	newDraw.R = Integer.parseInt(data[4]);
+        	newDraw.G = Integer.parseInt(data[5]);
+        	newDraw.B = Integer.parseInt(data[6]);
+        	newDraw.stroke = Float.parseFloat(data[7]);
+        	newDraw.type = Integer.parseInt(data[8]);
+        	newDraw.s1 = data[9];
+        	newDraw.s1 = data[10];
+        	createNewItemInClient(newDraw);
+    	}
+//    	while (true) {
+//			int x1 = is.readInt();
+//			int y1 = is.readInt();
+//			int x2 = is.readInt();
+//			int y2 = is.readInt();
+//			Graphics drawer = this.getGraphics();
+//			drawer.drawLine(x1, y1, x2, y2);
+//		}
 	}
     private class checkBoxHandler implements ItemListener {
         public void itemStateChanged(ItemEvent e) {
@@ -639,12 +651,13 @@ public class WhiteBoard extends JFrame
 
     public class drawings implements Serializable
     {
+    	public drawings () {}
         public int x1, y1, x2, y2;
-        int R, G, B;
-        float stroke;
-        int type;
-        String s1;
-        String s2;
+        public int R, G, B;
+        public float stroke;
+        public int type;
+        public String s1;
+        public String s2;
         void draw(Graphics2D g2d) {};
     }
 

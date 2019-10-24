@@ -113,74 +113,50 @@ public class CreateWhiteBoard {
                 int count = 0;
                 Graphics g = newPad.getGraphics();
                 while (true) {
-//                    drawings nb = (drawings) ois.readObject();
-                    int x1 = is.readInt();
-                    if(x1 < -10000) {
-                		x1 = is.readInt();
-                	}
-                    int y1 = is.readInt();
-                    int x2 = is.readInt();
-                    int y2 = is.readInt();
-//                    System.out.println(nb.x1);
-//                    System.out.println(nb.y1);
-//                    System.out.println(nb.x2);
-//                    System.out.println(nb.y2);
-//                    newPad.createNewItemInClient(nb);
-                    g.drawLine(x1, y1, x2, y2);
+                	String test = is.readUTF();
+                	String[] data = test.split(",");
+                	System.out.println("Server " + data.length + " " + data[4]);
+                	drawings newDraw = newPad.new drawings();
+                	newDraw.x1 = Integer.parseInt(data[0]);
+                	newDraw.y1 = Integer.parseInt(data[1]);
+                	newDraw.x2 = Integer.parseInt(data[2]);
+                	newDraw.y2 = Integer.parseInt(data[3]);
+                	newDraw.R = Integer.parseInt(data[4]);
+                	newDraw.G = Integer.parseInt(data[5]);
+                	newDraw.B = Integer.parseInt(data[6]);
+                	newDraw.stroke = Float.parseFloat(data[7]);
+                	newDraw.type = Integer.parseInt(data[8]);
+                	newDraw.s1 = data[9];
+                	newDraw.s1 = data[10];
+                	newPad.createNewItemInClient(newDraw);
+                	
+                	
+                	
+                	
+                	
                     for(Socket client:clientList) {
                     	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
 //                        oos = new ObjectOutputStream(client.getOutputStream());
-                        os.writeInt(x1);
-                    	os.writeInt(y1);
-                    	os.writeInt(x2);
-                    	os.writeInt(y2);
-                    	os.flush();
-//                      if(nb != null && nb.x1 != 0 && nb.y1 != 0) {
-//                    		oos.writeObject(nb);
-//                    	}
+                        os.writeUTF(test);
                     }
-                    //                    WhiteBoard.drawings draw = (WhiteBoard.drawings) ois.readObject();
-                    //                    sumDraw.add(draw);
-                    //                    oos.writeObject(sumDraw);
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                    //                    if (newOb != null) {
-                    //
-                    //                        System.out.println(newOb.x1 + " " + newOb.y2 + " " + newOb.x2 + " " + newOb.y2);
-                    //                        System.out.println(clientSocket.getPort() + "cacacaa" + clientSocket.getLocalPort());
-                    //                        System.out.println(number);
-                    //
-                    //                        ArrayList<Integer> coordinate = new ArrayList<Integer>();
-                    //
-                    //    //                            oss.writeObject(newOb);
-                    //                        coordinate.add(newOb.x1);
-                    //                        coordinate.add(newOb.y1);
-                    //                        coordinate.add(newOb.x2);
-                    //                        coordinate.add(newOb.y2);
-                    //                        for (int i = 0; i < 4; i++) {
-                    //                            os.writeInt(coordinate.get(i));
-                    //                            System.out.println("wrote " + i);
-                    //                        }
-                    //                        count += 1;
-                    //                        os.flush();
-                    //    //                        if(count == 20) {
-                    //    //                            os.flush();
-                    //    //                            count = 0;
-                    //    //                        }
-                    //
-                    //                        newOb = null;
-                    //    //                        int x1, x2, y1, y2;
-                    //    //                        x1=is.readInt();
-                    //    //                        y1=is.readInt();
-                    //    //                        x2=is.readInt();
-                    //    //                        y2=is.readInt();
-                    //    //                        Graphics g = this.getGraphics();
-                    //    //                        g.drawLine(x1, y1, x2, y2);
-                    //                    }
+//                    int x1 = is.readInt();
+//                    if(x1 < -10000) {
+//                		x1 = is.readInt();
+//                	}
+//                    int y1 = is.readInt();
+//                    int x2 = is.readInt();
+//                    int y2 = is.readInt();
+//                    g.drawLine(x1, y1, x2, y2);
+//                	
+//                    for(Socket client:clientList) {
+//                    	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+////                        oos = new ObjectOutputStream(client.getOutputStream());
+//                        os.writeInt(x1);
+//                    	os.writeInt(y1);
+//                    	os.writeInt(x2);
+//                    	os.writeInt(y2);
+//                    	os.flush();
+//                    }
                 }
             } catch (IOException e) {
                 System.out.println("IOException");

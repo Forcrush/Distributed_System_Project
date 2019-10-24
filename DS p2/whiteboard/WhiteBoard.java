@@ -83,24 +83,34 @@ public class WhiteBoard extends JFrame
     volatile drawings newOb = null;
 
     public WhiteBoard(String userName) {
-    	super("Distributed WhiteBoard");
+    	super("Distributed WhiteBoard1");
     	this.userName = userName;
     	createWB();
     }
 
     public WhiteBoard(String userName, Socket client) throws IOException, ClassNotFoundException {
-    	super("Distributed WhiteBoard");
+    	super(userName);
     	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
-        oos = new ObjectOutputStream(client.getOutputStream());
+        //oos = new ObjectOutputStream(client.getOutputStream());
         is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
 //        ois = new ObjectInputStream(client.getInputStream());
     	this.userName = userName;
     	this.client = client;
     	createWB();
+    	test();
+    	System.out.println("apz entered createWB");
     	receiveData();
+        System.out.println(2);
+    }
+
+    public void test(){
+        System.out.println("in test");
     }
 
     public void createWB() {
+
+        System.out.println("in createWB");
+
         JMenuBar bar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         fileMenu.setMnemonic('F');
@@ -259,7 +269,7 @@ public class WhiteBoard extends JFrame
         setSize(width, height);
         setVisible(true);
 
-        
+
     }
 
     public class ButtonHandlery implements ActionListener {
@@ -393,11 +403,19 @@ public class WhiteBoard extends JFrame
 //    	os.writeInt(newOb.y2);
 //      os.flush();
     }
-    
+
     public void receiveData() throws IOException, ClassNotFoundException {
-    	while (true) {
+
+        os.flush();
+        while (true) {
+            System.out.println("error1");
+
     		String test = is.readUTF();
+
+    		
+            System.out.println(2);
         	String[] data = test.split(",");
+            System.out.println(3);
         	if(data.length == 11) {
         		drawings newDraw = new drawings();
             	newDraw.x1 = Integer.parseInt(data[0]);

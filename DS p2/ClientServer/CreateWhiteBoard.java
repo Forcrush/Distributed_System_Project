@@ -7,6 +7,7 @@ package ClientServer;
 */
 import whiteboard.*;
 import whiteboard.WhiteBoard.drawings;
+import ClientServer.SessionManager.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -18,14 +19,20 @@ import java.io.*;
 import java.net.Socket;
 import java.net.ServerSocket;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CreateWhiteBoard {
     static int port = 9090;
     static int counter = 0;
     static String userName = "Server";
     volatile static ArrayList<drawings> sumDraw = new ArrayList<drawings>();
+    static HashMap<String,Socket> userMap = new HashMap<>();
+
     static ArrayList<Socket> clientList = new ArrayList<Socket>();
+    static ArrayList<User> userList = new ArrayList<>();
+
     static WhiteBoard newPad;
+    static SessionManagerPanel sessPanel;
 
     public static void main(String args[]) throws ClassNotFoundException, IOException {
         try {
@@ -41,6 +48,12 @@ public class CreateWhiteBoard {
                     System.exit(0);
                 }
             });
+
+        //SessionManger
+        System.out.println("Session Manager");
+
+        sessPanel= new SessionManagerPanel(port);
+        sessPanel.setVisible(true);
 
          ServerSocketFactory factory = ServerSocketFactory.getDefault();
                 try (ServerSocket server = factory.createServerSocket(port)) {
@@ -92,22 +105,58 @@ public class CreateWhiteBoard {
         ServerThread(Socket client) {
             this.client = client;
             clientList.add(client);
+
+
+
+
         }
 
         public void run() {
             String clientDrawing;
             try {
                 //连接成功后得到数据输出流
+                System.out.println(1);
                 os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
-                oos = new ObjectOutputStream(client.getOutputStream());
-                
+                System.out.println(2);
+                //oos = new ObjectOutputStream(client.getOutputStream());
+                System.out.println(3);
                 is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
-                ois = new ObjectInputStream(client.getInputStream());
+                //ois = new ObjectInputStream(client.getInputStream());
+
+//                BufferedReader request = new BufferedReader(new InputStreamReader(client.getInputStream(), "UTF-8"));
+//                BufferedWriter response = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+
+
+                String clientUserName = is.readUTF();
+                System.out.println(clientUserName);
+                if(clientUserName !=null) {
+                    System.out.println(4);
+                    System.out.println(5);
+                    JOptionPane.showConfirmDialog(null, clientUserName + " wants to join your session", "Do you authorise?",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    System.out.println(6);
+                    //copied
+                    if (JOptionPane.NO_OPTION==0) {
+                        System.out.println(clientUserName + " quit!");
+                        os.writeUTF("No");
+                        os.flush();
+                    } else if (JOptionPane.YES_OPTION==0) {
+                        System.out.println(clientUserName + "join!");
+                        System.out.println("login success: id = " + " , " + this.client);
+
+                        //create new user object
+                        sessPanel.update(new User(counter, clientUserName, client));
+
+                        os.writeUTF("Yes");
+                        os.flush();
+                    }
+                }
+
 
 
                 //x1,y1为起始点坐标，x2,y2为终点坐标。四个点的初始值设为0
 
-                
+
                 int count = 0;
                 Graphics g = newPad.getGraphics();
                 while (true) {

@@ -1,80 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5f4df91d-e78e-444b-87af-e98df5be300f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/CreatWhiteBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientServer/CreateWhiteBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JoinWhiteBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientServer/JoinWhiteBoard.java" afterDir="false" />
+    <list default="true" id="ea9d47b2-8589-4542-b27f-a33fb2944dc1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ClientServer/SessionManager/SessionList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientServer/SessionManager/SessionManagerPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClientServer/SessionManager/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DS p2 - ∏±±æ - ∏±±æ.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientServer/CreateWhiteBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientServer/CreateWhiteBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientServer/JoinWhiteBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientServer/JoinWhiteBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbox/ChatboxClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/chatbox/ChatboxClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbox/ChatboxServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/chatbox/ChatboxServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbox/message/MsgOperation.java" beforeDir="false" afterPath="$PROJECT_DIR$/chatbox/message/MsgOperation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/whiteboard/WhiteBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/whiteboard/WhiteBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$ButtonHandlerx.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$ButtonHandlerx.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$ButtonHandlery.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$ButtonHandlery.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$DrawPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$DrawPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$checkBoxHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$checkBoxHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$mouseEvent1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$mouseEvent1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$mouseEvent2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard$mouseEvent2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project2/out/production/Project2/whiteboard/WhiteBoard.class" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/JoinWhiteBoard.class">
+        <entry file="file://$PROJECT_DIR$/ClientServer/JoinWhiteBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="554">
+              <caret line="136" selection-start-line="136" selection-end-line="136" />
               <folding>
-                <element signature="e#0#2401#0" expanded="true" />
+                <element signature="e#2567#2732#0" expanded="true" />
+                <element signature="e#2731#2732#0" expanded="true" />
+                <element signature="e#4949#5098#0" expanded="true" />
+                <element signature="e#5097#5098#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ClientServer/CreateWhiteBoard.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-18">
+              <caret line="26" column="26" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/whiteboard/WhiteBoard.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3690">
+              <caret line="265" selection-start-line="265" selection-end-line="265" />
+              <folding>
+                <element signature="e#3053#3054#0" expanded="true" />
+                <element signature="e#3102#3103#0" expanded="true" />
+                <element signature="e#3446#3447#0" expanded="true" />
+                <element signature="e#3503#3504#0" expanded="true" />
+                <element signature="e#3781#3782#0" expanded="true" />
+                <element signature="e#3839#3840#0" expanded="true" />
+                <element signature="e#4118#4119#0" expanded="true" />
+                <element signature="e#4176#4177#0" expanded="true" />
+                <element signature="e#4488#4489#0" expanded="true" />
+                <element signature="e#4550#4551#0" expanded="true" />
+                <element signature="e#4949#4950#0" expanded="true" />
+                <element signature="e#5010#5011#0" expanded="true" />
+                <element signature="e#5416#5417#0" expanded="true" />
+                <element signature="e#5475#5476#0" expanded="true" />
+                <element signature="e#7346#7347#0" expanded="true" />
+                <element signature="e#7403#7404#0" expanded="true" />
+                <element signature="e#7565#7566#0" expanded="true" />
+                <element signature="e#7623#7624#0" expanded="true" />
+                <element signature="e#7785#7786#0" expanded="true" />
+                <element signature="e#7843#7844#0" expanded="true" />
+                <element signature="e#8087#8088#0" expanded="true" />
+                <element signature="e#8183#8184#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ClientServer/SessionManager/SessionList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-194">
+              <caret line="25" column="22" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="22" />
+              <folding>
+                <element signature="e#492#498#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CreatWhiteBoard.class">
+        <entry file="file://$PROJECT_DIR$/ClientServer/SessionManager/SessionManagerPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="1028">
+              <caret line="126" column="23" lean-forward="true" selection-start-line="126" selection-start-column="23" selection-end-line="126" selection-end-column="23" />
               <folding>
-                <element signature="e#0#4664#0" expanded="true" />
+                <element signature="e#1134#1163#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ClientServer/SessionManager/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="452">
+              <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>123</find>
+      <find>createNewItemInClient</find>
+      <find>1</find>
+      <find>error1</find>
+      <find>ois</find>
+      <find>rece</find>
+      <find>oos</find>
+      <find>yes</find>
+      <find>cont</find>
+      <find>userList</find>
+      <find>ShowUI</find>
+      <find>session</find>
+      <find>sessionList</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/chatbox/ChatboxClient.java" />
+        <option value="$PROJECT_DIR$/chatbox/ChatboxServer.java" />
+        <option value="$PROJECT_DIR$/chatbox/message/MsgOperation.java" />
+        <option value="$PROJECT_DIR$/whiteboard/WhiteBoard.java" />
+        <option value="$PROJECT_DIR$/ClientServer/JoinWhiteBoard.java" />
+        <option value="$PROJECT_DIR$/ClientServer/SessionManager/SessionList.java" />
+        <option value="$PROJECT_DIR$/ClientServer/SessionManager/SessionManagerPanel.java" />
+        <option value="$PROJECT_DIR$/ClientServer/CreateWhiteBoard.java" />
+        <option value="$PROJECT_DIR$/ClientServer/SessionManager/User.java" />
+      </list>
+    </option>
   </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths />
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+    <option name="width" value="855" />
+    <option name="height" value="1050" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1280" />
-    <option name="height" value="715" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -82,17 +180,43 @@
     <panes>
       <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="DS p2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DS p2" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DS p2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DS p2" type="462c0819:PsiDirectoryNode" />
+              <item name="chatbox" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DS p2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DS p2" type="462c0819:PsiDirectoryNode" />
+              <item name="ClientServer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DS p2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DS p2" type="462c0819:PsiDirectoryNode" />
+              <item name="ClientServer" type="462c0819:PsiDirectoryNode" />
+              <item name="SessionManager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DS p2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DS p2" type="462c0819:PsiDirectoryNode" />
+              <item name="whiteboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -106,109 +230,232 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+  <component name="RunManager" selected="Application.JoinWhiteBoard">
+    <configuration name="CreateWhiteBoard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ClientServer.CreateWhiteBoard" />
+      <module name="DS p2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ClientServer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <option name="TEST_OBJECT" value="class" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+    <configuration name="JoinWhiteBoard" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ClientServer.JoinWhiteBoard" />
+      <module name="DS p2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ClientServer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="TestNG">
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <list>
+      <item itemvalue="Application.CreateWhiteBoard" />
+      <item itemvalue="Application.JoinWhiteBoard" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.JoinWhiteBoard" />
+        <item itemvalue="Application.CreateWhiteBoard" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5f4df91d-e78e-444b-87af-e98df5be300f" name="Default" comment="" />
-      <created>1571803209589</created>
+      <changelist id="ea9d47b2-8589-4542-b27f-a33fb2944dc1" name="Default Changelist" comment="" />
+      <created>1571888634627</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1571803209589</updated>
-      <workItem from="1571803210974" duration="123000" />
+      <updated>1571888634627</updated>
     </task>
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123000" />
-  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="715" extended-state="6" />
+    <frame x="0" y="0" width="855" height="1050" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2536349" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="UI Designer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Learn" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.17700915" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" />
+      <window_info anchor="bottom" id="Messages" weight="0.32959184" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32925585" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32959184" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Theme Preview" />
       <window_info anchor="right" id="Maven" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Json Parser" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Database" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Maven Projects" order="8" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Image Layers" order="0" />
+      <window_info id="Designer" order="1" />
+      <window_info id="UI Designer" order="2" />
+      <window_info id="Learn" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="6" visible="true" weight="0.17700915" />
+      <window_info id="Structure" order="7" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="0" />
+      <window_info anchor="bottom" id="Version Control" order="1" />
+      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="3" weight="0.32959184" />
+      <window_info anchor="bottom" id="Message" order="4" />
+      <window_info anchor="bottom" id="Find" order="5" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.32959184" />
+      <window_info anchor="bottom" id="Debug" order="7" visible="true" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="10" />
+      <window_info anchor="right" id="Palette" order="0" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Json Parser" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Maven" order="5" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="6" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
+    </layout-to-restore>
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/whiteboard/WhiteBoard.java</url>
+          <line>265</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/chatbox/ChatboxServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="15" column="16" selection-end-line="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chatbox/ChatboxClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="9" column="5" selection-end-line="140" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chatbox/message/MsgOperation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="23" lean-forward="true" selection-end-line="140" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/whiteboard/WhiteBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="3690">
+          <caret line="265" selection-start-line="265" selection-end-line="265" />
           <folding>
-            <element signature="e#0#25307#0" expanded="true" />
+            <element signature="e#3053#3054#0" expanded="true" />
+            <element signature="e#3102#3103#0" expanded="true" />
+            <element signature="e#3446#3447#0" expanded="true" />
+            <element signature="e#3503#3504#0" expanded="true" />
+            <element signature="e#3781#3782#0" expanded="true" />
+            <element signature="e#3839#3840#0" expanded="true" />
+            <element signature="e#4118#4119#0" expanded="true" />
+            <element signature="e#4176#4177#0" expanded="true" />
+            <element signature="e#4488#4489#0" expanded="true" />
+            <element signature="e#4550#4551#0" expanded="true" />
+            <element signature="e#4949#4950#0" expanded="true" />
+            <element signature="e#5010#5011#0" expanded="true" />
+            <element signature="e#5416#5417#0" expanded="true" />
+            <element signature="e#5475#5476#0" expanded="true" />
+            <element signature="e#7346#7347#0" expanded="true" />
+            <element signature="e#7403#7404#0" expanded="true" />
+            <element signature="e#7565#7566#0" expanded="true" />
+            <element signature="e#7623#7624#0" expanded="true" />
+            <element signature="e#7785#7786#0" expanded="true" />
+            <element signature="e#7843#7844#0" expanded="true" />
+            <element signature="e#8087#8088#0" expanded="true" />
+            <element signature="e#8183#8184#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CreatWhiteBoard.java" />
-    <entry file="file://$PROJECT_DIR$/JoinWhiteBoard.class">
+    <entry file="file://$PROJECT_DIR$/ClientServer/JoinWhiteBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="554">
+          <caret line="136" selection-start-line="136" selection-end-line="136" />
           <folding>
-            <element signature="e#0#2401#0" expanded="true" />
+            <element signature="e#2567#2732#0" expanded="true" />
+            <element signature="e#2731#2732#0" expanded="true" />
+            <element signature="e#4949#5098#0" expanded="true" />
+            <element signature="e#5097#5098#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CreatWhiteBoard.class">
+    <entry file="file://$PROJECT_DIR$/ClientServer/CreateWhiteBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="-18">
+          <caret line="26" column="26" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="26" />
           <folding>
-            <element signature="e#0#4664#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ClientServer/SessionManager/SessionList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-194">
+          <caret line="25" column="22" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="22" />
+          <folding>
+            <element signature="e#492#498#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ClientServer/SessionManager/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ClientServer/SessionManager/SessionManagerPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1028">
+          <caret line="126" column="23" lean-forward="true" selection-start-line="126" selection-start-column="23" selection-end-line="126" selection-end-column="23" />
+          <folding>
+            <element signature="e#1134#1163#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -218,7 +465,7 @@
     <states>
       <state key="ProjectJDKs.UI">
         <settings>
-          <last-edited>12</last-edited>
+          <last-edited>1.8</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

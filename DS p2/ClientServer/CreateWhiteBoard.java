@@ -72,11 +72,9 @@ public class CreateWhiteBoard {
     	DataOutputStream os;
     	for(Socket client:clientList) {
         	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
-//            oos = new ObjectOutputStream(client.getOutputStream());
-            os.writeInt(newOb.x1);
-        	os.writeInt(newOb.y1);
-        	os.writeInt(newOb.x2);
-        	os.writeInt(newOb.y2);
+//          oos = new ObjectOutputStream(client.getOutputStream());
+        	String data = newOb.x1 + "," + newOb.y1 + "," + newOb.x2 + "," + newOb.y2 + "," + newOb.R + "," + newOb.G + "," + newOb.B + "," + newOb.stroke + "," + newOb.type + "," + newOb.s1 + "," + newOb.s2;
+        	os.writeUTF(data);
         	os.flush();
     	}
     }
@@ -115,20 +113,21 @@ public class CreateWhiteBoard {
                 while (true) {
                 	String test = is.readUTF();
                 	String[] data = test.split(",");
-                	System.out.println("Server " + data.length + " " + data[4]);
-                	drawings newDraw = newPad.new drawings();
-                	newDraw.x1 = Integer.parseInt(data[0]);
-                	newDraw.y1 = Integer.parseInt(data[1]);
-                	newDraw.x2 = Integer.parseInt(data[2]);
-                	newDraw.y2 = Integer.parseInt(data[3]);
-                	newDraw.R = Integer.parseInt(data[4]);
-                	newDraw.G = Integer.parseInt(data[5]);
-                	newDraw.B = Integer.parseInt(data[6]);
-                	newDraw.stroke = Float.parseFloat(data[7]);
-                	newDraw.type = Integer.parseInt(data[8]);
-                	newDraw.s1 = data[9];
-                	newDraw.s1 = data[10];
-                	newPad.createNewItemInClient(newDraw);
+                	if(data.length == 11) {
+	                	drawings newDraw = newPad.new drawings();
+	                	newDraw.x1 = Integer.parseInt(data[0]);
+	                	newDraw.y1 = Integer.parseInt(data[1]);
+	                	newDraw.x2 = Integer.parseInt(data[2]);
+	                	newDraw.y2 = Integer.parseInt(data[3]);
+	                	newDraw.R = Integer.parseInt(data[4]);
+	                	newDraw.G = Integer.parseInt(data[5]);
+	                	newDraw.B = Integer.parseInt(data[6]);
+	                	newDraw.stroke = Float.parseFloat(data[7]);
+	                	newDraw.type = Integer.parseInt(data[8]);
+	                	newDraw.s1 = data[9];
+	                	newDraw.s1 = data[10];
+	                	newPad.createNewItemInClient(newDraw);
+                	}
                 	
                 	
                 	
@@ -138,6 +137,7 @@ public class CreateWhiteBoard {
                     	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
 //                        oos = new ObjectOutputStream(client.getOutputStream());
                         os.writeUTF(test);
+                        os.flush();
                     }
 //                    int x1 = is.readInt();
 //                    if(x1 < -10000) {

@@ -397,20 +397,21 @@ public class WhiteBoard extends JFrame
     	while (true) {
     		String test = is.readUTF();
         	String[] data = test.split(",");
-        	System.out.println("Server " + data.length + " " + data[4]);
-        	drawings newDraw = new drawings();
-        	newDraw.x1 = Integer.parseInt(data[0]);
-        	newDraw.y1 = Integer.parseInt(data[1]);
-        	newDraw.x2 = Integer.parseInt(data[2]);
-        	newDraw.y2 = Integer.parseInt(data[3]);
-        	newDraw.R = Integer.parseInt(data[4]);
-        	newDraw.G = Integer.parseInt(data[5]);
-        	newDraw.B = Integer.parseInt(data[6]);
-        	newDraw.stroke = Float.parseFloat(data[7]);
-        	newDraw.type = Integer.parseInt(data[8]);
-        	newDraw.s1 = data[9];
-        	newDraw.s1 = data[10];
-        	createNewItemInClient(newDraw);
+        	if(data.length == 11) {
+        		drawings newDraw = new drawings();
+            	newDraw.x1 = Integer.parseInt(data[0]);
+            	newDraw.y1 = Integer.parseInt(data[1]);
+            	newDraw.x2 = Integer.parseInt(data[2]);
+            	newDraw.y2 = Integer.parseInt(data[3]);
+            	newDraw.R = Integer.parseInt(data[4]);
+            	newDraw.G = Integer.parseInt(data[5]);
+            	newDraw.B = Integer.parseInt(data[6]);
+            	newDraw.stroke = Float.parseFloat(data[7]);
+            	newDraw.type = Integer.parseInt(data[8]);
+            	newDraw.s1 = data[9];
+            	newDraw.s1 = data[10];
+            	createNewItemInClient(newDraw);
+        	}
     	}
 //    	while (true) {
 //			int x1 = is.readInt();

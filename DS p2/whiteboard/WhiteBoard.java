@@ -9,6 +9,9 @@ package whiteboard;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import ClientServer.CreateWhiteBoard;
+
 import java.io.*;
 
 import java.awt.Graphics;
@@ -19,6 +22,7 @@ import java.net.Socket;
 
 public class WhiteBoard extends JFrame
 {
+	CreateWhiteBoard serverPad = new CreateWhiteBoard();
     private JButton choices[];
     private String names[] = {
     	"New", "Open", "Save", "Pencil", "Line", "Rect", "fRect", "Oval", "fOval", "Circle", 
@@ -360,6 +364,10 @@ public class WhiteBoard extends JFrame
             try {
             	if (!userName.equals("Server")){
             		sendData(newOb);
+            	}
+            	else {
+            		
+            		serverPad.drawToClient(newOb);
             	}
             } catch (IOException e1) {
             	e1.printStackTrace();

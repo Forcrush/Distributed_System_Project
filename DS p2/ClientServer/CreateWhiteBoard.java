@@ -1,3 +1,4 @@
+package ClientServer;
 /*
 * @Author: Puffrora
 * @Date:   2019-09-20 15:35:02
@@ -18,7 +19,7 @@ import java.net.Socket;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 
-public class CreatWhiteBoard {
+public class CreateWhiteBoard {
     static int port = 9090;
     static int counter = 0;
     static String userName = "Server";
@@ -26,7 +27,7 @@ public class CreatWhiteBoard {
     static ArrayList<Socket> clientList = new ArrayList<Socket>();
     static WhiteBoard newPad;
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws ClassNotFoundException, IOException {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -67,6 +68,19 @@ public class CreatWhiteBoard {
                 }
     }
 
+    public void drawToClient(drawings newOb) throws IOException {
+    	DataOutputStream os;
+    	for(Socket client:clientList) {
+        	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+//            oos = new ObjectOutputStream(client.getOutputStream());
+            os.writeInt(newOb.x1);
+        	os.writeInt(newOb.y1);
+        	os.writeInt(newOb.x2);
+        	os.writeInt(newOb.y2);
+        	os.flush();
+    	}
+    }
+    
     static class ServerThread extends Thread {
         // Client sends the query here and this thread will produce the responses to the client. In this case, client sends the drawings here
         // And the drawings will be combined with other drawings then send back to the client.

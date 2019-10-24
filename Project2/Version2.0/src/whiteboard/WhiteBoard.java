@@ -9,6 +9,9 @@ package whiteboard;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import ClientServer.CreateWhiteBoard;
+
 import java.io.*;
 
 import java.awt.Graphics;
@@ -20,6 +23,19 @@ import java.net.Socket;
 
 
 import message.MsgOperation;
+import whiteboard.WhiteBoard.Circle;
+import whiteboard.WhiteBoard.Line;
+import whiteboard.WhiteBoard.Oval;
+import whiteboard.WhiteBoard.Pencil;
+import whiteboard.WhiteBoard.Rect;
+import whiteboard.WhiteBoard.RoundRect;
+import whiteboard.WhiteBoard.Rubber;
+import whiteboard.WhiteBoard.Word;
+import whiteboard.WhiteBoard.drawings;
+import whiteboard.WhiteBoard.fillCircle;
+import whiteboard.WhiteBoard.fillOval;
+import whiteboard.WhiteBoard.fillRect;
+import whiteboard.WhiteBoard.fillRoundRect;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,10 +49,12 @@ import java.net.UnknownHostException;
 import javax.net.ServerSocketFactory;
 import javax.swing.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class WhiteBoard extends JFrame
 {
+	CreateWhiteBoard serverPad = new CreateWhiteBoard();
     private JButton choices[];
     private String names[] = {
         "New", "Open", "Save", "Pencil", "Line", "Rect", "fRect", "Oval", "fOval", "Circle", 
@@ -81,7 +99,7 @@ public class WhiteBoard extends JFrame
     JToolBar buttonPanel;
     JCheckBox bold, italic;
     JComboBox<String> styles;
-    drawings[] iArray = new drawings[5000];
+    ArrayList<drawings> iArray = new ArrayList<drawings>();
 
     DataOutputStream os;
     DataInputStream is;
@@ -320,24 +338,24 @@ public class WhiteBoard extends JFrame
         public void mousePressed(MouseEvent e) {
             statusBar.setText("     Mouse Pressed @:[" + e.getX() +
                     ", " + e.getY() + "]");
-            iArray[index].x1 = iArray[index].x2 = e.getX();
-            iArray[index].y1 = iArray[index].y2 = e.getY();
+            iArray.get(index).x1 = iArray.get(index).x2 = e.getX();
+            iArray.get(index).y1 = iArray.get(index).y2 = e.getY();
             if (currentChoice == 3 || currentChoice == 13) {
-                iArray[index].x1 = iArray[index].x2 = e.getX();
-                iArray[index].y1 = iArray[index].y2 = e.getY();
+                iArray.get(index).x1 = iArray.get(index).x2 = e.getX();
+                iArray.get(index).y1 = iArray.get(index).y2 = e.getY();
                 index++;
                 createNewItem();
             }
             if (currentChoice == 14) {
-                iArray[index].x1 = e.getX();
-                iArray[index].y1 = e.getY();
+                iArray.get(index).x1 = e.getX();
+                iArray.get(index).y1 = e.getY();
                 String input;
                 input = JOptionPane.showInputDialog(
                         "Please input the text you want!");
-                iArray[index].s1 = input;
-                iArray[index].x2 = genre1;
-                iArray[index].y2 = genre2;
-                iArray[index].s2 = styleCur;
+                iArray.get(index).s1 = input;
+                iArray.get(index).x2 = genre1;
+                iArray.get(index).y2 = genre2;
+                iArray.get(index).s2 = styleCur;
                 index++;
                 createNewItem();
                 drawingArea.repaint();
@@ -347,12 +365,12 @@ public class WhiteBoard extends JFrame
             statusBar.setText("     Mouse Released @:[" + e.getX() +
                     ", " + e.getY() + "]");
             if (currentChoice == 3 || currentChoice == 13) {
-                iArray[index].x1 = e.getX();
-                iArray[index].y1 = e.getY();
+                iArray.get(index).x1 = e.getX();
+                iArray.get(index).y1 = e.getY();
             }
-            iArray[index].x2 = e.getX();
-            iArray[index].y2 = e.getY();
-            newOb = iArray[index];
+            iArray.get(index).x2 = e.getX();
+            iArray.get(index).y2 = e.getY();
+            newOb = iArray.get(index);
             repaint();
             index++;
             createNewItem();
@@ -375,18 +393,21 @@ public class WhiteBoard extends JFrame
                     ", " + e.getY() + "]");
 
             if (currentChoice == 3 || currentChoice == 13) {
-                iArray[index - 1].x1 = iArray[index].x2 = iArray[index].x1 = e.getX();
-                iArray[index - 1].y1 = iArray[index].y2 = iArray[index].y1 = e.getY();
-                newOb = iArray[index];
+                iArray.get(index - 1).x1 = iArray.get(index).x2 = iArray.get(index).x1 = e.getX();
+                iArray.get(index - 1).y1 = iArray.get(index).y2 = iArray.get(index).y1 = e.getY();
+                newOb = iArray.get(index);
                 index++;
                 createNewItem();
             } else {
-                iArray[index].x2 = e.getX();
-                iArray[index].y2 = e.getY();
+                iArray.get(index).x2 = e.getX();
+                iArray.get(index).y2 = e.getY();
             }
             try {
                 if (!userName.equals("Server")){
                     sendData(newOb);
+                }
+                else {
+                	serverPad.drawToClient(newOb);
                 }
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -403,29 +424,42 @@ public class WhiteBoard extends JFrame
     }
 
     public void sendData(drawings newOb) throws IOException {
-//      if(newOb != null && newOb.x1 != 0 && newOb.y1 != 0) {
-//          oos.writeObject(newOb);
-            os.writeInt(newOb.x1);
-            os.writeInt(newOb.y1);
-            os.writeInt(newOb.x2);
-            os.writeInt(newOb.y2);
-            os.flush();
-//      }
+    	String data = newOb.x1 + "," + newOb.y1 + "," + newOb.x2 + "," + newOb.y2 + "," + newOb.R + "," + newOb.G + "," + newOb.B + "," + newOb.stroke + "," + newOb.type + "," + newOb.s1 + "," + newOb.s2;
+    	os.writeUTF(data);
+    	os.flush();
+    	System.out.println("Data sent from white board " + data);
+//        os.writeInt(newOb.x1);
+//        os.writeInt(newOb.y1);
+//        os.writeInt(newOb.x2);
+//        os.writeInt(newOb.y2);
+//        os.flush();
     }
     
     public void receiveData() throws IOException, ClassNotFoundException {
-//      ois = new ObjectInputStream(client.getInputStream());
-//      while (true) {
-//          drawings receiveOb = (drawings) ois.readObject();
-//          createNewItemInClient(receiveOb);
-//      }
         while (true) {
-            int x1 = is.readInt();
-            int y1 = is.readInt();
-            int x2 = is.readInt();
-            int y2 = is.readInt();
-            Graphics drawer = this.getGraphics();
-            drawer.drawLine(x1, y1, x2, y2);
+        	String test = is.readUTF();
+        	String[] data = test.split(",");
+        	if(data.length == 11) {
+        		drawings newDraw = new drawings();
+            	newDraw.x1 = Integer.parseInt(data[0]);
+            	newDraw.y1 = Integer.parseInt(data[1]);
+            	newDraw.x2 = Integer.parseInt(data[2]);
+            	newDraw.y2 = Integer.parseInt(data[3]);
+            	newDraw.R = Integer.parseInt(data[4]);
+            	newDraw.G = Integer.parseInt(data[5]);
+            	newDraw.B = Integer.parseInt(data[6]);
+            	newDraw.stroke = Float.parseFloat(data[7]);
+            	newDraw.type = Integer.parseInt(data[8]);
+            	newDraw.s1 = data[9];
+            	newDraw.s1 = data[10];
+            	createNewItemInClient(newDraw);
+        	}
+//            int x1 = is.readInt();
+//            int y1 = is.readInt();
+//            int x2 = is.readInt();
+//            int y2 = is.readInt();
+//            Graphics drawer = this.getGraphics();
+//            drawer.drawLine(x1, y1, x2, y2);
         }
     }
 
@@ -580,8 +614,8 @@ public class WhiteBoard extends JFrame
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
             int j = 0;
-            while (j <= index) {
-                draw(g2d, iArray[j]);
+            while (j < index) {
+                draw(g2d, iArray.get(j));
                 j++;
             }
         }
@@ -599,49 +633,49 @@ public class WhiteBoard extends JFrame
             drawingArea.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         }
         switch (currentChoice) {
-            case 3:
-                iArray[index] = new Pencil();
-                break;
-            case 4:
-                iArray[index] = new Line();
-                break;
-            case 5:
-                iArray[index] = new Rect();
-                break;
-            case 6:
-                iArray[index] = new fillRect();
-                break;
-            case 7:
-                iArray[index] = new Oval();
-                break;
-            case 8:
-                iArray[index] = new fillOval();
-                break;
-            case 9:
-                iArray[index] = new Circle();
-                break;
-            case 10:
-                iArray[index] = new fillCircle();
-                break;
-            case 11:
-                iArray[index] = new RoundRect();
-                break;
-            case 12:
-                iArray[index] = new fillRoundRect();
-                break;
-            case 13:
-                iArray[index] = new Rubber();
-                break;
-            case 14:
-                iArray[index] = new Word();
-                break;
+	        case 3:
+	            iArray.add(index, new Pencil());
+	            break;
+	        case 4:
+	            iArray.add(index, new Line());
+	            break;
+	        case 5:
+	            iArray.add(index, new Rect());
+	            break;
+	        case 6:
+	            iArray.add(index, new fillRect());
+	            break;
+	        case 7:
+	            iArray.add(index, new Oval());
+	            break;
+	        case 8:
+	            iArray.add(index, new fillOval());
+	            break;
+	        case 9:
+	            iArray.add(index, new Circle());
+	            break;
+	        case 10:
+	            iArray.add(index, new fillCircle());
+	            break;
+	        case 11:
+	            iArray.add(index, new RoundRect());
+	            break;
+	        case 12:
+	            iArray.add(index, new fillRoundRect());
+	            break;
+	        case 13:
+	            iArray.add(index, new Rubber());
+	            break;
+	        case 14:
+	            iArray.add(index, new Word());
+	            break;
         }
-        iArray[index].type = currentChoice;
+        iArray.get(index).type = currentChoice;
         System.out.println("Set index: "+index+" choice as "+currentChoice);
-        iArray[index].R = R;
-        iArray[index].G = G;
-        iArray[index].B = B;
-        iArray[index].stroke = stroke;
+        iArray.get(index).R = R;
+        iArray.get(index).G = G;
+        iArray.get(index).B = B;
+        iArray.get(index).stroke = stroke;
     }
 
     public void testClient() {
@@ -651,15 +685,15 @@ public class WhiteBoard extends JFrame
 
     public void createNewItemInClient(drawings infoOb) {
 
-        iArray[index].x1 = infoOb.x1;
-        iArray[index].y1 = infoOb.y1;
-        iArray[index].x2 = infoOb.x2;
-        iArray[index].y2 = infoOb.y2;
+        iArray.get(index).x1 = infoOb.x1;
+        iArray.get(index).y1 = infoOb.y1;
+        iArray.get(index).x2 = infoOb.x2;
+        iArray.get(index).y2 = infoOb.y2;
         currentChoice = infoOb.type;
         // ===== testing clause
         if (index > 1){
-            if (currentChoice != iArray[index-1].type) {
-                System.out.println("index:"+index+" currentChoice "+currentChoice+" index-1~choice: "+iArray[index-1].type);
+            if (currentChoice != iArray.get(index - 1).type) {
+                System.out.println("index:"+index+" currentChoice "+currentChoice+" index-1~choice: " + iArray.get(index - 1).type);
                 
             }
         }
@@ -672,7 +706,7 @@ public class WhiteBoard extends JFrame
         index ++;
         repaint();
         createNewItem();
-        //System.out.println(index+" "+iArray[index].x1+" "+iArray[index].y1+" "+iArray[index].x2+" "+iArray[index].y2);
+        //System.out.println(index+" "+iArray.get(index).x1+" "+iArray.get(index).y1+" "+iArray.get(index).x2+" "+iArray.get(index).y2);
         
     }
 
@@ -682,9 +716,9 @@ public class WhiteBoard extends JFrame
         R = color.getRed();
         G = color.getGreen();
         B = color.getBlue();
-        iArray[index].R = R;
-        iArray[index].G = G;
-        iArray[index].B = B;
+        iArray.get(index).R = R;
+        iArray.get(index).G = G;
+        iArray.get(index).B = B;
     }
 
     public void setStroke() {
@@ -692,7 +726,7 @@ public class WhiteBoard extends JFrame
         input = JOptionPane.showInputDialog(
                 "Please input the size of stroke!");
         stroke = Float.parseFloat(input);
-        iArray[index].stroke = stroke;
+        iArray.get(index).stroke = stroke;
     }
 
     public void saveFile() {
@@ -715,7 +749,7 @@ public class WhiteBoard extends JFrame
                 drawings record;
                 output.writeInt(index);
                 for (int i = 0; i < index; i++) {
-                    drawings p = iArray[i];
+                    drawings p = iArray.get(i);
                     output.writeObject(p);
                     output.flush();
                 }
@@ -748,7 +782,7 @@ public class WhiteBoard extends JFrame
                 countNumber = input.readInt();
                 for (index = 0; index < countNumber; index++) {
                     inputRecord = (drawings) input.readObject();
-                    iArray[index] = inputRecord;
+                    iArray.add(index, inputRecord);
                 }
                 createNewItem();
                 input.close();
@@ -778,11 +812,11 @@ public class WhiteBoard extends JFrame
     public class drawings implements Serializable
     {
         public int x1, y1, x2, y2;
-        int R, G, B;
-        float stroke;
-        int type;
-        String s1;
-        String s2;
+        public int R, G, B;
+        public float stroke;
+        public int type;
+        public String s1;
+        public String s2;
         void draw(Graphics2D g2d) {};
     }
 

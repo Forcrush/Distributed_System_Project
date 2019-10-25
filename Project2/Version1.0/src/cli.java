@@ -18,7 +18,7 @@ public class cli extends JFrame implements Runnable{
     ObjectInputStream iss;
     Graphics g;
     WhiteBoard newPad;
-    WhiteBoard.drawings nb;
+    drawings nb;
 
     public static void main(String args[]) {
         cli CP = new cli();
@@ -62,7 +62,7 @@ public class cli extends JFrame implements Runnable{
     public void run() {
         while (true) {
             try {
-                    nb = (WhiteBoard.drawings)iss.readObject();
+                    nb = (drawings)iss.readObject();
                     newPad.createNewItemInClient(nb);
 
             } catch (IOException e) {

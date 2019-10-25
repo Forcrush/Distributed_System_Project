@@ -131,7 +131,6 @@ public class WhiteBoard extends JFrame
         this.type= type;
         this.client = client;
         createWB();
-        receiveData();
     }
 
     public void createWB() {
@@ -370,9 +369,28 @@ public class WhiteBoard extends JFrame
             iArray.get(index).x2 = e.getX();
             iArray.get(index).y2 = e.getY();
             newOb = iArray.get(index);
-            repaint();
-            index++;
-            createNewItem();
+            if(type == "client") {
+            	try {
+    				sendData(newOb);
+    			} catch (IOException e1) {
+    				// TODO Auto-generated catch block
+    				e1.printStackTrace();
+    			}
+            }
+            else {
+            	try {
+					serverPad.drawToClient(newOb);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            }
+            System.out.println("coordinate" +newOb.x1 + "   " + newOb.y1);
+            if (newOb != null && newOb.x1 != 0 && newOb.y1 != 0) {
+            	repaint();
+            	index++;
+                createNewItem();
+            }
         }
         public void mouseEntered(MouseEvent e) {
             statusBar.setText("     Mouse Entered @:[" + e.getX() +
@@ -395,22 +413,22 @@ public class WhiteBoard extends JFrame
                 iArray.get(index - 1).x1 = iArray.get(index).x2 = iArray.get(index).x1 = e.getX();
                 iArray.get(index - 1).y1 = iArray.get(index).y2 = iArray.get(index).y1 = e.getY();
                 newOb = iArray.get(index);
+                try {
+                    if (!type.equals("server")){
+                        sendData(newOb);
+                    }
+                    else {
+                    	serverPad.drawToClient(newOb);
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                    System.out.println("IOException");
+                }
                 index++;
                 createNewItem();
             } else {
                 iArray.get(index).x2 = e.getX();
                 iArray.get(index).y2 = e.getY();
-            }
-            try {
-                if (!type.equals("server")){
-                    sendData(newOb);
-                }
-                else {
-                	serverPad.drawToClient(newOb);
-                }
-            } catch (IOException e1) {
-                e1.printStackTrace();
-                System.out.println("IOException");
             }
             repaint();
         }
@@ -422,11 +440,11 @@ public class WhiteBoard extends JFrame
     }
 
     public void sendData(drawings newOb) throws IOException {
-    	if (newOb != null) {
+    	if (newOb != null && newOb.x1 != 0 && newOb.y1 != 0) {
     		String data = newOb.x1 + "," + newOb.y1 + "," + newOb.x2 + "," + newOb.y2 + "," + newOb.R + "," + newOb.G + "," + newOb.B + "," + newOb.stroke + "," + newOb.type + "," + newOb.s1 + "," + newOb.s2;
         	os.writeUTF(data);
         	os.flush();
-        	System.out.println("Data sent from white board " + data);
+//        	System.out.println("Data sent from white board " + data);
 //            os.writeInt(newOb.x1);
 //            os.writeInt(newOb.y1);
 //            os.writeInt(newOb.x2);

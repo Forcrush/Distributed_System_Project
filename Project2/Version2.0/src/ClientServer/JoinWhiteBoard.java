@@ -23,7 +23,7 @@ public class JoinWhiteBoard extends JFrame {
     DataOutputStream os;
     ObjectInputStream iss;
     Graphics g;
-    WhiteBoard newPad;
+    static WhiteBoard newPad;
     Socket client;
 
     public static void main(String args[]) throws IOException, ClassNotFoundException {
@@ -31,6 +31,7 @@ public class JoinWhiteBoard extends JFrame {
         JoinWhiteBoard CP = new JoinWhiteBoard();
         CP.creat();
         CP.ShowUI();
+        newPad.receiveData();
     }
     
     private static void parseArgs(String[] args) {
@@ -93,5 +94,4 @@ public class JoinWhiteBoard extends JFrame {
             });
         g = newPad.getGraphics();
         }
-
     }

@@ -120,18 +120,20 @@ public class CreateWhiteBoard {
 
     }
     public void drawToClient(drawings newOb) throws IOException {
-    	DataOutputStream os;
-    	for(Socket client:clientList) {
-        	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
-        	String data = newOb.x1 + "," + newOb.y1 + "," + newOb.x2 + "," + newOb.y2 + "," + newOb.R + "," + newOb.G + "," + newOb.B + "," + newOb.stroke + "," + newOb.type + "," + newOb.s1 + "," + newOb.s2;
-        	os.writeUTF(data);
-        	os.flush();
-//        	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
-//          os.writeInt(newOb.x1);
-//        	os.writeInt(newOb.y1);
-//        	os.writeInt(newOb.x2);
-//        	os.writeInt(newOb.y2);
-//        	os.flush();
+    	if(newOb != null) {
+    		DataOutputStream os;
+        	for(Socket client:clientList) {
+            	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+            	String data = newOb.x1 + "," + newOb.y1 + "," + newOb.x2 + "," + newOb.y2 + "," + newOb.R + "," + newOb.G + "," + newOb.B + "," + newOb.stroke + "," + newOb.type + "," + newOb.s1 + "," + newOb.s2;
+            	os.writeUTF(data);
+            	os.flush();
+//            	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+//              os.writeInt(newOb.x1);
+//            	os.writeInt(newOb.y1);
+//            	os.writeInt(newOb.x2);
+//            	os.writeInt(newOb.y2);
+//            	os.flush();
+        	}
     	}
     }
 

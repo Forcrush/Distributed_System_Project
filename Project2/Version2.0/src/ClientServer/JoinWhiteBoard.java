@@ -19,13 +19,11 @@ public class JoinWhiteBoard extends JFrame {
     public static String address = "localhost";
     public static final String TYPE = "client";
     public static String userName = "Client";
-    int x1,x2,y1,y2,curchoice;
     DataInputStream is;
     DataOutputStream os;
     ObjectInputStream iss;
     Graphics g;
     WhiteBoard newPad;
-    WhiteBoard.drawings nb;
     Socket client;
 
     public static void main(String args[]) throws IOException, ClassNotFoundException {

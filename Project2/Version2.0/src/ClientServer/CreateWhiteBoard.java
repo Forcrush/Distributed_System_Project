@@ -143,7 +143,6 @@ public class CreateWhiteBoard {
         DataOutputStream os;
         ObjectOutputStream oos;
         ObjectInputStream ois;
-        BufferedReader in;
 
         ServerThread(Socket client) {
             this.client = client;
@@ -151,7 +150,6 @@ public class CreateWhiteBoard {
         }
 
         public void run() {
-            String clientDrawing;
             try {
                 //连接成功后得到数据输出流
                 os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
@@ -163,8 +161,6 @@ public class CreateWhiteBoard {
 
                 //x1,y1为起始点坐标，x2,y2为终点坐标。四个点的初始值设为0
 
-                
-                int count = 0;
                 Graphics g = newPad.getGraphics();
                 while (true) {
                 	String test = is.readUTF();

@@ -127,9 +127,6 @@ public class WhiteBoard extends JFrame
         os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
         oos = new ObjectOutputStream(client.getOutputStream());
         is = new DataInputStream(new BufferedInputStream(client.getInputStream()));
-        System.out.println("error1");
-        //ois = new ObjectInputStream(client.getInputStream());
-        System.out.println("error2");
         this.userName = userName;
         this.type= type;
         this.client = client;
@@ -629,61 +626,55 @@ public class WhiteBoard extends JFrame
     }
 
     void createNewItem() {
-        if (currentChoice == 14)
-        {
+        if (currentChoice == 14) {
             drawingArea.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
         } else {
             drawingArea.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         }
         switch (currentChoice) {
-	        case 3:
-	            iArray.add(index, new Pencil());
-	            break;
-	        case 4:
-	            iArray.add(index, new Line());
-	            break;
-	        case 5:
-	            iArray.add(index, new Rect());
-	            break;
-	        case 6:
-	            iArray.add(index, new fillRect());
-	            break;
-	        case 7:
-	            iArray.add(index, new Oval());
-	            break;
-	        case 8:
-	            iArray.add(index, new fillOval());
-	            break;
-	        case 9:
-	            iArray.add(index, new Circle());
-	            break;
-	        case 10:
-	            iArray.add(index, new fillCircle());
-	            break;
-	        case 11:
-	            iArray.add(index, new RoundRect());
-	            break;
-	        case 12:
-	            iArray.add(index, new fillRoundRect());
-	            break;
-	        case 13:
-	            iArray.add(index, new Rubber());
-	            break;
-	        case 14:
-	            iArray.add(index, new Word());
-	            break;
+            case 3:
+                iArray.add(index, new Pencil());
+                break;
+            case 4:
+                iArray.add(index, new Line());
+                break;
+            case 5:
+                iArray.add(index, new Rect());
+                break;
+            case 6:
+                iArray.add(index, new fillRect());
+                break;
+            case 7:
+                iArray.add(index, new Oval());
+                break;
+            case 8:
+                iArray.add(index, new fillOval());
+                break;
+            case 9:
+                iArray.add(index, new Circle());
+                break;
+            case 10:
+                iArray.add(index, new fillCircle());
+                break;
+            case 11:
+                iArray.add(index, new RoundRect());
+                break;
+            case 12:
+                iArray.add(index, new fillRoundRect());
+                break;
+            case 13:
+                iArray.add(index, new Rubber());
+                break;
+            case 14:
+                iArray.add(index, new Word());
+                break;
         }
         iArray.get(index).type = currentChoice;
-        System.out.println("Set index: "+index+" choice as "+currentChoice);
+//        System.out.println("Set index: " + index + " choice as " + currentChoice);
         iArray.get(index).R = R;
         iArray.get(index).G = G;
         iArray.get(index).B = B;
         iArray.get(index).stroke = stroke;
-    }
-
-    public void testClient() {
-        System.out.println("testtesttest:  "+index);
-        index++;
     }
 
     public void createNewItemInClient(drawings infoOb) {
@@ -696,8 +687,7 @@ public class WhiteBoard extends JFrame
         // ===== testing clause
         if (index > 1){
             if (currentChoice != iArray.get(index - 1).type) {
-                System.out.println("index:"+index+" currentChoice "+currentChoice+" index-1~choice: " + iArray.get(index - 1).type);
-                
+//                System.out.println("index:"+index+" currentChoice "+currentChoice+" index-1~choice: " + iArray.get(index - 1).type);
             }
         }
         // ===== 
@@ -951,5 +941,4 @@ public class WhiteBoard extends JFrame
             }
         }
     }
-
 }

@@ -107,21 +107,22 @@ public class WhiteBoard extends JFrame
     ObjectInputStream ois;
     int number = 0;
     Socket client;
-    private static int counter = 0;
-    private static int port = 9090;
-    static String userName;
+    private static String userName;
+    private static String type;
+    
 
     static int clientPos = 0;
 
     volatile drawings newOb = null;
 
-    public WhiteBoard(String userName) {
+    public WhiteBoard(String type, String userName) {
         super("Distributed WhiteBoard");
         this.userName = userName;
+        this.type= type;
         createWB();
     }
 
-    public WhiteBoard(String userName, Socket client) throws IOException, ClassNotFoundException {
+    public WhiteBoard(String type, String userName, Socket client) throws IOException, ClassNotFoundException {
         super("Distributed WhiteBoard");
         os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
         oos = new ObjectOutputStream(client.getOutputStream());
@@ -130,6 +131,7 @@ public class WhiteBoard extends JFrame
         //ois = new ObjectInputStream(client.getInputStream());
         System.out.println("error2");
         this.userName = userName;
+        this.type= type;
         this.client = client;
         createWB();
         receiveData();
@@ -403,7 +405,7 @@ public class WhiteBoard extends JFrame
                 iArray.get(index).y2 = e.getY();
             }
             try {
-                if (!userName.equals("Server")){
+                if (!type.equals("server")){
                     sendData(newOb);
                 }
                 else {
@@ -413,7 +415,6 @@ public class WhiteBoard extends JFrame
                 e1.printStackTrace();
                 System.out.println("IOException");
             }
-
             repaint();
         }
         public void mouseMoved(MouseEvent e) {
@@ -424,15 +425,17 @@ public class WhiteBoard extends JFrame
     }
 
     public void sendData(drawings newOb) throws IOException {
-    	String data = newOb.x1 + "," + newOb.y1 + "," + newOb.x2 + "," + newOb.y2 + "," + newOb.R + "," + newOb.G + "," + newOb.B + "," + newOb.stroke + "," + newOb.type + "," + newOb.s1 + "," + newOb.s2;
-    	os.writeUTF(data);
-    	os.flush();
-    	System.out.println("Data sent from white board " + data);
-//        os.writeInt(newOb.x1);
-//        os.writeInt(newOb.y1);
-//        os.writeInt(newOb.x2);
-//        os.writeInt(newOb.y2);
-//        os.flush();
+    	if (newOb != null) {
+    		String data = newOb.x1 + "," + newOb.y1 + "," + newOb.x2 + "," + newOb.y2 + "," + newOb.R + "," + newOb.G + "," + newOb.B + "," + newOb.stroke + "," + newOb.type + "," + newOb.s1 + "," + newOb.s2;
+        	os.writeUTF(data);
+        	os.flush();
+        	System.out.println("Data sent from white board " + data);
+//            os.writeInt(newOb.x1);
+//            os.writeInt(newOb.y1);
+//            os.writeInt(newOb.x2);
+//            os.writeInt(newOb.y2);
+//            os.flush();
+    	}
     }
     
     public void receiveData() throws IOException, ClassNotFoundException {

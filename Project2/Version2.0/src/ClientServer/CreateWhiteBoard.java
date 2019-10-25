@@ -31,15 +31,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CreateWhiteBoard {
-    static int port = 9090;
-    static int counter = 0;
-    static String userName = "Server";
-    volatile static ArrayList<drawings> sumDraw = new ArrayList<drawings>();
+	public final static int MIN_PORT = 0;
+	public final static int MAX_PORT = 65535;
+	public static final String TYPE = "server";
+    public static int port = 9090;
+    public static String address = "localhost";
+    public static int counter = 0;
+    public static String userName = "Server";
     static ArrayList<Socket> clientList = new ArrayList<Socket>();
     static WhiteBoard newPad;
     static String dicpath = "chatmsg.txt";
 
     public static void main(String args[]) {
+    	parseArgs(args);
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -52,10 +56,38 @@ public class CreateWhiteBoard {
         Thread chatboxT = new Thread(() -> startChatboxService());
         chatboxT.start();
     }
+    
+    private static void parseArgs(String[] args) {
+		if(args.length == 3) {
+			if(isNumeric(args[1]) && MIN_PORT <= Integer.parseInt(args[1]) && Integer.parseInt(args[1]) <= MAX_PORT) {
+				address = args[0];
+				port = Integer.parseInt(args[1]);
+				userName = args[2];
+			}
+			else {
+				System.out.println("Port number is invalid");
+				System.exit(1);
+			}
+		}
+		else {
+			System.out.println("Argument input is invalid");
+			System.exit(1);
+		}
+	}
+	
+	private static boolean isNumeric(String strNum) {
+	    try {
+	        double d = Double.parseDouble(strNum);
+	    } catch (NumberFormatException | NullPointerException nfe) {
+	    	System.out.println("Invalid port");
+			System.exit(1);
+	    }
+	    return true;
+	}
 
     public static void startWBService() {
-        newPad = new WhiteBoard(userName);
-        newPad.setTitle("Server Side");
+        newPad = new WhiteBoard(TYPE, userName);
+        newPad.setTitle(userName);
         newPad.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 System.exit(0);

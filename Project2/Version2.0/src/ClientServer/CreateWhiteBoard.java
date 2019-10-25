@@ -1,3 +1,4 @@
+package ClientServer;
 /*
 * @Author: Puffrora
 * @Date:   2019-09-20 15:35:02
@@ -24,24 +25,25 @@ import message.MsgOperation;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CreateWhiteBoard {
-    static int port = 9090;
-    static int counter = 0;
-    static String userName = "Server";
-    volatile static ArrayList<drawings> sumDraw = new ArrayList<drawings>();
+	public final static int MIN_PORT = 0;
+	public final static int MAX_PORT = 65535;
+	public static final String TYPE = "server";
+    public static int port = 9090;
+    public static String address = "localhost";
+    public static int counter = 0;
+    public static String userName = "Server";
     static ArrayList<Socket> clientList = new ArrayList<Socket>();
     static WhiteBoard newPad;
     static String dicpath = "chatmsg.txt";
 
     public static void main(String args[]) {
+    	parseArgs(args);
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -54,10 +56,38 @@ public class CreateWhiteBoard {
         Thread chatboxT = new Thread(() -> startChatboxService());
         chatboxT.start();
     }
+    
+    private static void parseArgs(String[] args) {
+		if(args.length == 3) {
+			if(isNumeric(args[1]) && MIN_PORT <= Integer.parseInt(args[1]) && Integer.parseInt(args[1]) <= MAX_PORT) {
+				address = args[0];
+				port = Integer.parseInt(args[1]);
+				userName = args[2];
+			}
+			else {
+				System.out.println("Port number is invalid");
+				System.exit(1);
+			}
+		}
+		else {
+			System.out.println("Argument input is invalid");
+			System.exit(1);
+		}
+	}
+	
+	private static boolean isNumeric(String strNum) {
+	    try {
+	        double d = Double.parseDouble(strNum);
+	    } catch (NumberFormatException | NullPointerException nfe) {
+	    	System.out.println("Invalid port");
+			System.exit(1);
+	    }
+	    return true;
+	}
 
     public static void startWBService() {
-        newPad = new WhiteBoard(userName);
-        newPad.setTitle("Server Side");
+        newPad = new WhiteBoard(TYPE, userName);
+        newPad.setTitle(userName);
         newPad.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
@@ -89,6 +119,23 @@ public class CreateWhiteBoard {
         }
 
     }
+    public void drawToClient(drawings newOb) throws IOException {
+    	if(newOb != null) {
+    		DataOutputStream os;
+        	for(Socket client:clientList) {
+            	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+            	String data = newOb.x1 + "," + newOb.y1 + "," + newOb.x2 + "," + newOb.y2 + "," + newOb.R + "," + newOb.G + "," + newOb.B + "," + newOb.stroke + "," + newOb.type + "," + newOb.s1 + "," + newOb.s2;
+            	os.writeUTF(data);
+            	os.flush();
+//            	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+//              os.writeInt(newOb.x1);
+//            	os.writeInt(newOb.y1);
+//            	os.writeInt(newOb.x2);
+//            	os.writeInt(newOb.y2);
+//            	os.flush();
+        	}
+    	}
+    }
 
     static class ServerThread extends Thread {
         // Client sends the query here and this thread will produce the responses to the client. In this case, client sends the drawings here
@@ -98,7 +145,6 @@ public class CreateWhiteBoard {
         DataOutputStream os;
         ObjectOutputStream oos;
         ObjectInputStream ois;
-        BufferedReader in;
 
         ServerThread(Socket client) {
             this.client = client;
@@ -106,7 +152,6 @@ public class CreateWhiteBoard {
         }
 
         public void run() {
-            String clientDrawing;
             try {
                 //连接成功后得到数据输出流
                 os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
@@ -118,78 +163,44 @@ public class CreateWhiteBoard {
 
                 //x1,y1为起始点坐标，x2,y2为终点坐标。四个点的初始值设为0
 
-                
-                int count = 0;
                 Graphics g = newPad.getGraphics();
                 while (true) {
-                    // drawings nb = (drawings) ois.readObject();
-                    int x1 = is.readInt();
-                    if(x1 < -10000) {
-                		x1 = is.readInt();
+                	String test = is.readUTF();
+                	String[] data = test.split(",");
+                	if(data.length == 11) {
+	                	drawings newDraw = newPad.new drawings();
+	                	newDraw.x1 = Integer.parseInt(data[0]);
+	                	newDraw.y1 = Integer.parseInt(data[1]);
+	                	newDraw.x2 = Integer.parseInt(data[2]);
+	                	newDraw.y2 = Integer.parseInt(data[3]);
+	                	newDraw.R = Integer.parseInt(data[4]);
+	                	newDraw.G = Integer.parseInt(data[5]);
+	                	newDraw.B = Integer.parseInt(data[6]);
+	                	newDraw.stroke = Float.parseFloat(data[7]);
+	                	newDraw.type = Integer.parseInt(data[8]);
+	                	newDraw.s1 = data[9];
+	                	newDraw.s1 = data[10];
+	                	newPad.createNewItemInClient(newDraw);
                 	}
-                    int y1 = is.readInt();
-                    int x2 = is.readInt();
-                    int y2 = is.readInt();
-                    //                    System.out.println(nb.x1);
-                    //                    System.out.println(nb.y1);
-                    //                    System.out.println(nb.x2);
-                    //                    System.out.println(nb.y2);
-                    //                    newPad.createNewItemInClient(nb);
-                    g.drawLine(x1, y1, x2, y2);
+//                    int x1 = is.readInt();
+//                    if(x1 < -10000) {
+//                		x1 = is.readInt();
+//                	}
+//                    int y1 = is.readInt();
+//                    int x2 = is.readInt();
+//                    int y2 = is.readInt();
+//                    g.drawLine(x1, y1, x2, y2);
                     for(Socket client:clientList) {
-                    	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
-                        // oos = new ObjectOutputStream(client.getOutputStream());
-                        os.writeInt(x1);
-                    	os.writeInt(y1);
-                    	os.writeInt(x2);
-                    	os.writeInt(y2);
-                    	os.flush();
-                        // if(nb != null && nb.x1 != 0 && nb.y1 != 0) {
-                        // oos.writeObject(nb);
-                        // }
+                        os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+                        os.writeUTF(test);
+                        os.flush();
+//                    	os = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+//                      os.writeInt(x1);
+//                    	os.writeInt(y1);
+//                    	os.writeInt(x2);
+//                    	os.writeInt(y2);
+//                    	os.flush();
                     }
-                    //                    WhiteBoard.drawings draw = (WhiteBoard.drawings) ois.readObject();
-                    //                    sumDraw.add(draw);
-                    //                    oos.writeObject(sumDraw);
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                    //                    if (newOb != null) {
-                    //
-                    //                        System.out.println(newOb.x1 + " " + newOb.y2 + " " + newOb.x2 + " " + newOb.y2);
-                    //                        System.out.println(clientSocket.getPort() + "cacacaa" + clientSocket.getLocalPort());
-                    //                        System.out.println(number);
-                    //
-                    //                        ArrayList<Integer> coordinate = new ArrayList<Integer>();
-                    //
-                    //    //                            oss.writeObject(newOb);
-                    //                        coordinate.add(newOb.x1);
-                    //                        coordinate.add(newOb.y1);
-                    //                        coordinate.add(newOb.x2);
-                    //                        coordinate.add(newOb.y2);
-                    //                        for (int i = 0; i < 4; i++) {
-                    //                            os.writeInt(coordinate.get(i));
-                    //                            System.out.println("wrote " + i);
-                    //                        }
-                    //                        count += 1;
-                    //                        os.flush();
-                    //    //                        if(count == 20) {
-                    //    //                            os.flush();
-                    //    //                            count = 0;
-                    //    //                        }
-                    //
-                    //                        newOb = null;
-                    //    //                        int x1, x2, y1, y2;
-                    //    //                        x1=is.readInt();
-                    //    //                        y1=is.readInt();
-                    //    //                        x2=is.readInt();
-                    //    //                        y2=is.readInt();
-                    //    //                        Graphics g = this.getGraphics();
-                    //    //                        g.drawLine(x1, y1, x2, y2);
-                    //                    }
                 }
             } catch (IOException e) {
                 System.out.println("IOException");
@@ -212,8 +223,8 @@ public class CreateWhiteBoard {
             // Wait for connections.
             while (true) {
                 Socket clientc = serverc.accept();
-                // counter ++;
-                // System.out.println("Client " + counter + ": Applying for connection!");
+                 counter ++;
+                 System.out.println("Client " + counter + ": Applying for connection!");
 
                 // Start a new thread for a connection
                 Thread t = new Thread(() -> serveClient(clientc, dicpath));

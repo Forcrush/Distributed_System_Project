@@ -10,5 +10,5 @@
 
 ## Based on Others's Code
 
-- [x] WhiteBoard4.0 (RMI)
-- [x] WhiteBoard5.0 (Socket)
+- [x] Version4.0 (RMI)
+- [x] Version45.0 (Socket)

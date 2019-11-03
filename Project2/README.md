@@ -7,3 +7,8 @@
 - [x] Version 1.0
 - [x] Version 2.0
 - [x] Version 3.0
+
+## Based on Others's Code
+
+- [x] WhiteBoard4.0 (RMI)
+- [x] WhiteBoard5.0 (Socket)
